@@ -5,13 +5,13 @@
 int getLeapYear(int year);
 int numberOfDaysSinceYearOne(int year);
 int getLeapDays(int year);
-void printYear(int year);
-void printMonthNames(char* months[], int startMonth, int endMonth);
-void printWeekdayNames(char* weekdays[]);
-void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year);
+void printYear(int year, char option[]);
+void printMonthNames(char* months[], int startMonth, int endMonth, char option[]);
+void printWeekdayNames(char* weekdays[], char option[]);
+void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year, char option[]);
+void printWeekNumber(int year, int startMonth, int month, int* dayCount, int nextDay);
 int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
 int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);
-void printWeekNumbers();
 
 /// <summary>
 /// Check if year is a leap year or not
@@ -24,7 +24,8 @@ int getLeapYear(int year)
 }
 
 /// <summary>
-/// Get number of leap days between year 1 and X
+/// Get number of leap days between year 1 and XXXX
+/// AlgoBuild function getLeapDays
 /// </summary>
 /// <param name="year"></param>
 /// <returns></returns>
@@ -60,9 +61,14 @@ int numberOfDaysSinceYearOne(int year)
 /// Print year in the middle of the application
 /// </summary>
 /// <param name="year"></param>
-void printYear(int year)
+void printYear(int year, char option[])
 {
-	printf("%*s", 38, ""); // Offset from left of application
+	int offset = 35;
+	if ((strcmp(option, "-w") == 0))
+	{
+		offset = 38;
+	}
+	printf("%*s", offset, ""); // Offset from left of application
 	printf("%d\n", year);
 	printf("\n");
 }
@@ -73,12 +79,19 @@ void printYear(int year)
 /// <param name="months"></param>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-void printMonthNames(char* months[], int startMonth, int endMonth)
+void printMonthNames(char* months[], int startMonth, int endMonth, char option[])
 {
-	printf("%*s", 9, ""); // Offset from left of application
+	int firstOffset = 6, secondOffset = 26;
+	if ((strcmp(option, "-w") == 0))
+	{
+		firstOffset = 9;
+		secondOffset = 29;
+
+	}
+	printf("%*s", firstOffset, ""); // Offset from left of application
 	for (int i = startMonth; i < endMonth; i++)
 	{
-		printf("%-*s", 29, months[i]);
+		printf("%-*s", secondOffset, months[i]);
 	}
 	printf("\n");
 }
@@ -87,11 +100,14 @@ void printMonthNames(char* months[], int startMonth, int endMonth)
 /// Print weekday names, "Su-Sa", with consistent spacings
 /// </summary>
 /// <param name="weekdays"></param>
-void printWeekdayNames(char* weekdays[])
+void printWeekdayNames(char* weekdays[], char option[])
 {
-	for (int j = 0; j < 3; j++)
+	for (int j = 0; j < 3; j++) //TODO: Maybe make this dynamic, 3 is hardcoded
 	{
-		printf("%2s ", "");
+		if ((strcmp(option, "-w") == 0))
+		{
+			printf("%2s ", "");
+		}
 		for (int i = 0; i < 7; i++)
 		{
 			printf("%-3s", weekdays[i]);
@@ -102,36 +118,72 @@ void printWeekdayNames(char* weekdays[])
 }
 
 /// <summary>
-/// Function to calculate the week number for a specific date.
+/// Function to get week number for a specific date
 /// </summary>
 /// <param name="year"></param>
 /// <param name="month"></param>
 /// <param name="day"></param>
-/// <param name="firstDayOfWeek"></param>
 /// <returns></returns>
-int getWeekNumber(int year, int month, int day, int firstDayOfWeek) {
-	struct tm timeStruct = { 0 };
-	timeStruct.tm_year = year - 1900; // tm_year is years since 1900
-	timeStruct.tm_mon = month - 1;    // tm_mon is 0-based
-	timeStruct.tm_mday = day;
+int getWeekNumber(int year, int month, int day) {
+	// Array with the number of days in each month
+	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	// Normalize the time structure
-	mktime(&timeStruct);
-
-	// Adjust the day of the week if the first day of the week is Monday
-	if (firstDayOfWeek == 1) { // 1 for Monday
-		if (timeStruct.tm_wday == 0) {
-			timeStruct.tm_wday = 6; // Sunday becomes Saturday
-		}
-		else {
-			timeStruct.tm_wday -= 1; // Shift days back by one
-		}
+	// Check for leap year and adjust February days
+	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+		daysInMonths[1] = 29;
 	}
 
+	// Calculate the day of the year
+	int dayOfYear = day;
+	for (int i = 0; i < month - 1; i++) {
+		dayOfYear += daysInMonths[i];
+	}
+
+	// Calculate the day of the week for January 1st of the given year
+	struct tm timeStruct = { 0 };
+	timeStruct.tm_year = year - 1900;
+	timeStruct.tm_mon = 0; // January
+	timeStruct.tm_mday = 1;
+	mktime(&timeStruct);
+	int dayOfWeekJan1 = timeStruct.tm_wday;
+
 	// Calculate the week number
-	char buffer[3];
-	strftime(buffer, sizeof(buffer), "%U", &timeStruct); // Use %U for week number starting with Sunday
-	return atoi(buffer) + 1; // Add 1 to match the expected week number
+	int weekNumber = (dayOfYear + dayOfWeekJan1 - 1) / 7 + 1;
+
+	// Ensure the week number does not exceed 52
+	if (weekNumber > 52) {
+		weekNumber = 1;
+	}
+
+	return weekNumber;
+}
+
+
+/// <summary>
+/// Function to calculate week number for a specific date
+/// </summary>
+/// <param name="year"></param>
+/// <param name="month"></param>
+/// <param name="day"></param>
+/// <returns></returns>
+int getWeekNumber2(int year, int month, int day) {
+	struct tm timeStruct = { 0 };
+	timeStruct.tm_year = year - 1900;
+	timeStruct.tm_mon = month - 1;
+	timeStruct.tm_mday = day;
+
+	mktime(&timeStruct);
+
+	// Start week on Sunday
+	int dayOfYear = timeStruct.tm_yday + 1; // tm_yday is 0-based
+	int weekNumber = (dayOfYear + timeStruct.tm_wday) / 7 + 1; // Add 1 to ensure week 1 is labeled as 1
+
+	// Ensure the week number does not exceed 52
+	if (weekNumber > 52) {
+		weekNumber = 1;
+	}
+
+	return weekNumber;
 }
 
 /// <summary>
@@ -143,11 +195,11 @@ int getWeekNumber(int year, int month, int day, int firstDayOfWeek) {
 /// <param name="isLeapYear"></param>
 /// <param name="months"></param>
 /// <param name="weekdays"></param>
-void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year)
+void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year, char option[])
 {
-	printMonthNames(months, startMonth, endMonth);
-	printWeekdayNames(weekdays);
-	int* firstDayInMonths = getFirstDayInMonths(startMonth, endMonth, totalDaysSinceYearOne, isLeapYear);
+	printMonthNames(months, startMonth, endMonth, option);
+	printWeekdayNames(weekdays, option);
+	int* firstDayInMonths = getFirstDayInMonths(startMonth, endMonth, totalDaysSinceYearOne, isLeapYear); //Basically get how many days to skip before starting to print the first of the month
 	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(startMonth, endMonth, isLeapYear);
 
 	int dayCount[3] = { 0,0,0 }; //Keep track of how many days have been printed.
@@ -163,34 +215,26 @@ void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int 
 					dayCount[month]++;
 					if (dayCount[month] <= numberOfDaysPerMonth[month])
 					{
-						if (day == 0)
+						if (day == 0 && (strcmp(option, "-w") == 0))
 						{
-							int y = year;
-							int m = startMonth + month + 1;
-							int d = dayCount[month];
-							int week = getWeekNumber(y, m, d, 0);
-							printf("%2d ", week);
+							printWeekNumber(year, startMonth, month, dayCount, 0);
 						}
 						printf("%2d ", dayCount[month]);
 					}
+					else if (day == 0 && (strcmp(option, "-w") == 0))
+					{
+						printf("%5s ", ""); //Trailing non-days of the week
+					}
 					else
 					{
-						if (day == 0)
-						{
-							printf("%2s ", ""); //Trailing non-days of the week
-						}
 						printf("%2s ", ""); //Trailing non-days of the week
 					}
 				}
 				else
 				{
-					if (day == 0)
+					if (day == 0 && (strcmp(option, "-w") == 0))
 					{
-						int y = year;
-						int m = startMonth + month + 1;
-						int d = dayCount[month]+1;
-						int week = getWeekNumber(y, m, d, 0);
-						printf("%2d ", week);
+						printWeekNumber(year, startMonth, month, dayCount, 1);
 					}
 					printf("%2s ", ""); //Leading non-days of the week
 				}
@@ -203,6 +247,23 @@ void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int 
 
 	free(firstDayInMonths);
 	free(numberOfDaysPerMonth);
+}
+
+/// <summary>
+/// Print week numbers for each month
+/// </summary>
+/// <param name="year"></param>
+/// <param name="startMonth"></param>
+/// <param name="month"></param>
+/// <param name="dayCount"></param>
+/// <param name="nextDay"></param>
+void printWeekNumber(int year, int startMonth, int month, int *dayCount, int nextDay)
+{
+	int y = year;
+	int m = startMonth + month + 1;
+	int d = dayCount[month] + nextDay;
+	int week = getWeekNumber(y, m, d);
+	printf("%2d ", week);
 }
 
 /// <summary>
@@ -248,6 +309,7 @@ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeap
 
 /// <summary>
 /// Get number of days for the provided months, account for leap year.
+/// AlgoBuild function getNumberOfDaysPerMonth
 /// </summary>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
@@ -268,6 +330,7 @@ int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
 	{
 		daysInMonths[1] = 29;
 	}
+
 	int ticks = 0;
 	for (int i = startMonth; i < endMonth; i++)
 	{

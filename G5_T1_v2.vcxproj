@@ -133,12 +133,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\G5_T1_v1\G5_T1\functions.c" />
-    <ClCompile Include="..\G5_T1_v1\G5_T1\main.c" />
-    <ClCompile Include="..\G5_T1_v1\G5_T1\todos.c" />
+    <ClCompile Include="..\G5_T1_v3\functions.c" />
+    <ClCompile Include="..\G5_T1_v3\main.c" />
+    <ClCompile Include="..\G5_T1_v3\todos.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\G5_T1_v1\G5_T1\functions.h" />
+    <ClInclude Include="..\G5_T1_v3\functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
