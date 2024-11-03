@@ -1,17 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-int getLeapYear(int year);
-int numberOfDaysSinceYearOne(int year);
-int getLeapDays(int year);
-void printYear(int year, char option[]);
-void printMonthNames(char* months[], int startMonth, int endMonth, char option[]);
-void printWeekdayNames(char* weekdays[], char option[]);
-void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year, char option[]);
-void printWeekNumber(int year, int startMonth, int month, int* dayCount, int nextDay);
-int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
-int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);
+#include "functions.h"
 
 /// <summary>
 /// Check if year is a leap year or not
@@ -158,32 +148,97 @@ int getWeekNumber(int year, int month, int day) {
 	return weekNumber;
 }
 
-
 /// <summary>
-/// Function to calculate week number for a specific date
+/// Print week numbers for each month
 /// </summary>
 /// <param name="year"></param>
+/// <param name="startMonth"></param>
 /// <param name="month"></param>
-/// <param name="day"></param>
+/// <param name="dayCount"></param>
+/// <param name="nextDay"></param>
+void printWeekNumber(int year, int startMonth, int month, int* dayCount, int nextDay)
+{
+	int y = year;
+	int m = startMonth + month + 1;
+	int d = dayCount[month] + nextDay;
+	int week = getWeekNumber(y, m, d);
+	printf("%2d ", week);
+}
+
+/// <summary>
+/// Get first weekday of the first week of each month, "Su-Sa", translated to 0-6
+/// </summary>
+/// <param name="startMonth"></param>
+/// <param name="endMonth"></param>
+/// <param name="totalDays"></param>
+/// <param name="isLeapYear"></param>
 /// <returns></returns>
-int getWeekNumber2(int year, int month, int day) {
-	struct tm timeStruct = { 0 };
-	timeStruct.tm_year = year - 1900;
-	timeStruct.tm_mon = month - 1;
-	timeStruct.tm_mday = day;
+int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear)
+{
+	int* firstDayInMonths = (int*)malloc(sizeof(int) * (endMonth - startMonth));
 
-	mktime(&timeStruct);
-
-	// Start week on Sunday
-	int dayOfYear = timeStruct.tm_yday + 1; // tm_yday is 0-based
-	int weekNumber = (dayOfYear + timeStruct.tm_wday) / 7 + 1; // Add 1 to ensure week 1 is labeled as 1
-
-	// Ensure the week number does not exceed 52
-	if (weekNumber > 52) {
-		weekNumber = 1;
+	// Initialize the array
+	for (int i = 0; i < (endMonth - startMonth); i++) {
+		firstDayInMonths[i] = 0;
 	}
 
-	return weekNumber;
+	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	if (isLeapYear)
+	{
+		daysInMonths[1] = 29;
+	}
+
+	int totalOffset = 0;
+	int ticks = 0;
+
+	for (int i = 0; i < endMonth; i++)
+	{
+		int offset = daysInMonths[i];
+		if (i >= startMonth && i < endMonth)
+		{
+			firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
+			ticks++;
+		}
+		totalOffset += offset;
+	}
+
+	return firstDayInMonths;
+}
+
+/// <summary>
+/// Get number of days for the provided months, account for leap year.
+/// AlgoBuild function getNumberOfDaysPerMonth
+/// </summary>
+/// <param name="startMonth"></param>
+/// <param name="endMonth"></param>
+/// <param name="isLeapYear"></param>
+/// <returns></returns>
+int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
+{
+	int* dayCount = (int*)malloc(sizeof(int) * (endMonth - startMonth));
+
+	// Initialize the array
+	for (int i = 0; i < (endMonth - startMonth); i++) {
+		dayCount[i] = 0;
+	}
+
+	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	if (isLeapYear)
+	{
+		daysInMonths[1] = 29;
+	}
+
+	int ticks = 0;
+	for (int i = startMonth; i < endMonth; i++)
+	{
+		int days = daysInMonths[i];
+		dayCount[ticks] = days;
+		ticks++;
+	}
+
+	return dayCount;
 }
 
 /// <summary>
@@ -247,97 +302,4 @@ void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int 
 
 	free(firstDayInMonths);
 	free(numberOfDaysPerMonth);
-}
-
-/// <summary>
-/// Print week numbers for each month
-/// </summary>
-/// <param name="year"></param>
-/// <param name="startMonth"></param>
-/// <param name="month"></param>
-/// <param name="dayCount"></param>
-/// <param name="nextDay"></param>
-void printWeekNumber(int year, int startMonth, int month, int *dayCount, int nextDay)
-{
-	int y = year;
-	int m = startMonth + month + 1;
-	int d = dayCount[month] + nextDay;
-	int week = getWeekNumber(y, m, d);
-	printf("%2d ", week);
-}
-
-/// <summary>
-/// Get first weekday of the first week of each month, "Su-Sa", translated to 0-6
-/// </summary>
-/// <param name="startMonth"></param>
-/// <param name="endMonth"></param>
-/// <param name="totalDays"></param>
-/// <param name="isLeapYear"></param>
-/// <returns></returns>
-int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear)
-{
-	int* firstDayInMonths = (int*)malloc(sizeof(int) * (endMonth - startMonth));
-
-	// Initialize the array
-	for (int i = 0; i < (endMonth - startMonth); i++) {
-		firstDayInMonths[i] = 0;
-	}
-
-	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	if (isLeapYear)
-	{
-		daysInMonths[1] = 29;
-	}
-
-	int totalOffset = 0;
-	int ticks = 0;
-
-	for (int i = 0; i < endMonth; i++)
-	{
-		int offset = daysInMonths[i];
-		if(i >= startMonth && i < endMonth)
-		{
-			firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
-			ticks++;
-		}
-		totalOffset += offset;
-	}
-
-	return firstDayInMonths;
-}
-
-/// <summary>
-/// Get number of days for the provided months, account for leap year.
-/// AlgoBuild function getNumberOfDaysPerMonth
-/// </summary>
-/// <param name="startMonth"></param>
-/// <param name="endMonth"></param>
-/// <param name="isLeapYear"></param>
-/// <returns></returns>
-int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
-{
-	int* dayCount = (int*)malloc(sizeof(int) * (endMonth - startMonth));
-
-	// Initialize the array
-	for (int i = 0; i < (endMonth - startMonth); i++) {
-		dayCount[i] = 0;
-	}
-
-	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	if (isLeapYear)
-	{
-		daysInMonths[1] = 29;
-	}
-
-	int ticks = 0;
-	for (int i = startMonth; i < endMonth; i++)
-	{
-		int days = daysInMonths[i];
-		dayCount[ticks] = days;
-		ticks++;
-	}
-
-	return dayCount;
 }
