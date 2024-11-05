@@ -177,30 +177,33 @@ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeap
 {
 	int* firstDayInMonths = (int*)malloc(sizeof(int) * (endMonth - startMonth));
 
-	// Initialize the array
-	for (int i = 0; i < (endMonth - startMonth); i++) {
-		firstDayInMonths[i] = 0;
-	}
-
-	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	if (isLeapYear)
+	if (firstDayInMonths)
 	{
-		daysInMonths[1] = 29;
-	}
-
-	int totalOffset = 0;
-	int ticks = 0;
-
-	for (int i = 0; i < endMonth; i++)
-	{
-		int offset = daysInMonths[i];
-		if (i >= startMonth && i < endMonth)
-		{
-			firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
-			ticks++;
+		// Initialize the array
+		for (int i = 0; i < (endMonth - startMonth); i++) {
+			firstDayInMonths[i] = 0;
 		}
-		totalOffset += offset;
+
+		int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+		if (isLeapYear)
+		{
+			daysInMonths[1] = 29;
+		}
+
+		int totalOffset = 0;
+		int ticks = 0;
+
+		for (int i = 0; i < endMonth; i++)
+		{
+			int offset = daysInMonths[i];
+			if (i >= startMonth && i < endMonth)
+			{
+				firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
+				ticks++;
+			}
+			totalOffset += offset;
+		}
 	}
 
 	return firstDayInMonths;
@@ -218,24 +221,27 @@ int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
 {
 	int* dayCount = (int*)malloc(sizeof(int) * (endMonth - startMonth));
 
-	// Initialize the array
-	for (int i = 0; i < (endMonth - startMonth); i++) {
-		dayCount[i] = 0;
-	}
-
-	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	if (isLeapYear)
+	if (dayCount)
 	{
-		daysInMonths[1] = 29;
-	}
+		// Initialize the array
+		for (int i = 0; i < (endMonth - startMonth); i++) {
+			dayCount[i] = 0;
+		}
 
-	int ticks = 0;
-	for (int i = startMonth; i < endMonth; i++)
-	{
-		int days = daysInMonths[i];
-		dayCount[ticks] = days;
-		ticks++;
+		int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+		if (isLeapYear)
+		{
+			daysInMonths[1] = 29;
+		}
+
+		int ticks = 0;
+		for (int i = startMonth; i < endMonth; i++)
+		{
+			int days = daysInMonths[i];
+			dayCount[ticks] = days;
+			ticks++;
+		}
 	}
 
 	return dayCount;
@@ -250,7 +256,7 @@ int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
 /// <param name="isLeapYear"></param>
 /// <param name="months"></param>
 /// <param name="weekdays"></param>
-void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, char* months[], char* weekdays[], int year, char option[])
+void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, const char* months[], const char* weekdays[], int year, char option[])
 {
 	printMonthNames(months, startMonth, endMonth, option);
 	printWeekdayNames(weekdays, option);
