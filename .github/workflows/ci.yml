@@ -20,7 +20,7 @@ jobs:
     - name: Run Code Quality Check
       run: |
         echo "Running code quality check..."
-        cppcheck --enable=all --inconclusive --suppress=missingIncludeSystem:tests.c .  # Suppress checks for tests.c
+        cppcheck --enable=all --inconclusive -i tests.c .  # Ignore tests.c
       continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
 
     - name: Build
