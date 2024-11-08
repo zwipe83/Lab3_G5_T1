@@ -113,7 +113,8 @@ int main() {
 
     // Clean up the registry
     CU_cleanup_registry();
-	
+
     // Check if any tests failed
-    return CU_get_error() == CUE_SUCCESS ? 0 : 1; // Return 1 if any test failed
+    int error = CU_get_error();
+    return error == CUE_SUCCESS ? 0 : 1; // Return 1 if any test failed
 }
