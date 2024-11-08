@@ -4,134 +4,84 @@
 
 int getLeapDays(int year);
 
-// Test for leap days from 1 to 1600
-void test_getLeapDays_1600() {
-    CU_ASSERT(getLeapDays(1601) == 397); // Leap days from 1 to 1600
-}
-
-// Test for leap days from 1 to 1700
-void test_getLeapDays_1700() {
-    CU_ASSERT(getLeapDays(1701) == 400); // Leap days from 1 to 1700
-}
-
-// Test for leap days from 1 to 1800
-void test_getLeapDays_1800() {
-    CU_ASSERT(getLeapDays(1801) == 440); // Leap days from 1 to 1800
-}
-
-// Test for leap days from 1 to 1900
-void test_getLeapDays_1900() {
-    CU_ASSERT(getLeapDays(1901) == 456); // Leap days from 1 to 1900
+// Test for leap days from 1 to 2004
+void test_getLeapDays_2004() {
+    CU_ASSERT(getLeapDays(2004) == 485); // Leap days from 1 to 2004
 }
 
 // Test for leap days from 1 to 2000
 void test_getLeapDays_2000() {
-    CU_ASSERT(getLeapDays(2001) == 488); // Leap days from 1 to 2000
+    CU_ASSERT(getLeapDays(2000) == 484); // Leap days from 1 to 1999
+}
+
+// Test for leap days from 1 to 1990
+void test_getLeapDays_1990() {
+    CU_ASSERT(getLeapDays(1990) == 482); // Leap days from 1 to 1989
+}
+
+// Test for leap days from 1 to 1980
+void test_getLeapDays_1980() {
+    CU_ASSERT(getLeapDays(1980) == 479); // Leap days from 1 to 1979
+}
+
+// Test for leap days from 1 to 1970
+void test_getLeapDays_1970() {
+    CU_ASSERT(getLeapDays(1970) == 477); // Leap days from 1 to 1969
+}
+
+// Test for leap days from 1 to 1960
+void test_getLeapDays_1960() {
+    CU_ASSERT(getLeapDays(1960) == 474); // Leap days from 1 to 1959
+}
+
+// Test for leap days from 1 to 2500
+void test_getLeapDays_2500() {
+    CU_ASSERT(getLeapDays(2500) == 609); // Leap days from 1 to 2499
+}
+
+// Test for leap days from 1 to 2200
+void test_getLeapDays_2200() {
+    CU_ASSERT(getLeapDays(2200) == 533); // Leap days from 1 to 2199
+}
+
+// Test for leap days from 1 to 1800
+void test_getLeapDays_1800() {
+    CU_ASSERT(getLeapDays(1800) == 440); // Leap days from 1 to 1799
+}
+
+// Test for leap days from 1 to 3000
+void test_getLeapDays_3000() {
+    CU_ASSERT(getLeapDays(3000) == 730); // Leap days from 1 to 2999
 }
 
 // Test for leap days from 1 to 1500
 void test_getLeapDays_1500() {
-    CU_ASSERT(getLeapDays(1501) == 366); // Leap days from 1 to 1500
+    CU_ASSERT(getLeapDays(1500) == 366); // Leap days from 1 to 1499
 }
 
-// Test for leap days from 1 to 1601
-void test_getLeapDays_1601() {
-    CU_ASSERT(getLeapDays(1602) == 397); // Leap days from 1 to 1601
+// Test for leap days from 1 to 2100
+void test_getLeapDays_2100() {
+    CU_ASSERT(getLeapDays(2100) == 525); // Leap days from 1 to 2099
 }
 
-// Test for leap days from 1 to 1701
-void test_getLeapDays_1701() {
-    CU_ASSERT(getLeapDays(1702) == 400); // Leap days from 1 to 1701
+// Test for leap days from 1 to 2400
+void test_getLeapDays_2400() {
+    CU_ASSERT(getLeapDays(2400) == 609); // Leap days from 1 to 2399
 }
 
-// Test for leap days from 1 to 1801
-void test_getLeapDays_1801() {
-    CU_ASSERT(getLeapDays(1802) == 440); // Leap days from 1 to 1801
+// Test for leap days from 1 to 1300
+void test_getLeapDays_1300() {
+    CU_ASSERT(getLeapDays(1300) == 317); // Leap days from 1 to 1299
 }
 
-// Test for leap days from 1 to 1901
-void test_getLeapDays_1901() {
-    CU_ASSERT(getLeapDays(1902) == 456); // Leap days from 1 to 1901
+// Test for leap days from 1 to 1700
+void test_getLeapDays_1700() {
+    CU_ASSERT(getLeapDays(1700) == 400); // Leap days from 1 to 1699
 }
 
-// Test for leap days from 1 to 2001
-void test_getLeapDays_2001() {
-    CU_ASSERT(getLeapDays(2002) == 488); // Leap days from 1 to 2001
-}
-
-// Test for leap days from 1 to 1602
-void test_getLeapDays_1602() {
-    CU_ASSERT(getLeapDays(1603) == 397); // Leap days from 1 to 1602
-}
-
-// Test for leap days from 1 to 1702
-void test_getLeapDays_1702() {
-    CU_ASSERT(getLeapDays(1703) == 400); // Leap days from 1 to 1702
-}
-
-// Test for leap days from 1 to 1802
-void test_getLeapDays_1802() {
-    CU_ASSERT(getLeapDays(1803) == 440); // Leap days from 1 to 1802
-}
-
-// Test for leap days from 1 to 1902
-void test_getLeapDays_1902() {
-    CU_ASSERT(getLeapDays(1903) == 456); // Leap days from 1 to 1902
-}
-
-// Test for leap days from 1 to 2002
-void test_getLeapDays_2002() {
-    CU_ASSERT(getLeapDays(2003) == 488); // Leap days from 1 to 2002
-}
-
-// Test for leap days from 1 to 1603
-void test_getLeapDays_1603() {
-    CU_ASSERT(getLeapDays(1604) == 397); // Leap days from 1 to 1603
-}
-
-// Test for leap days from 1 to 1703
-void test_getLeapDays_1703() {
-    CU_ASSERT(getLeapDays(1704) == 400); // Leap days from 1 to 1703
-}
-
-// Test for leap days from 1 to 1803
-void test_getLeapDays_1803() {
-    CU_ASSERT(getLeapDays(1804) == 440); // Leap days from 1 to 1803
-}
-
-// Test for leap days from 1 to 1903
-void test_getLeapDays_1903() {
-    CU_ASSERT(getLeapDays(1904) == 456); // Leap days from 1 to 1903
-}
-
-// Test for leap days from 1 to 2003
-void test_getLeapDays_2003() {
-    CU_ASSERT(getLeapDays(2004) == 488); // Leap days from 1 to 2003
-}
-
-// Test for leap days from 1 to 1604
-void test_getLeapDays_1604() {
-    CU_ASSERT(getLeapDays(1605) == 397); // Leap days from 1 to 1604
-}
-
-// Test for leap days from 1 to 1704
-void test_getLeapDays_1704() {
-    CU_ASSERT(getLeapDays(1705) == 400); // Leap days from 1 to 1704
-}
-
-// Test for leap days from 1 to 1804
-void test_getLeapDays_1804() {
-    CU_ASSERT(getLeapDays(1805) == 440); // Leap days from 1 to 1804
-}
-
-// Test for leap days from 1 to 1904
-void test_getLeapDays_1904() {
-    CU_ASSERT(getLeapDays(1905) == 456); // Leap days from 1 to 1904
-}
-
-// Test for leap days from 1 to 2004
-void test_getLeapDays_2004() {
-    CU_ASSERT(getLeapDays(2004) == 485); // Leap days from 1 to 2004
+// Test for leap days from 1 to 1900
+void test_getLeapDays_1900() {
+    CU_ASSERT(getLeapDays(1900) == 456); // Leap days from 1 to 1899
 }
 
 int main() {
@@ -141,32 +91,22 @@ int main() {
     // Create a test suite
     CU_pSuite suite = CU_add_suite("Leap Year Tests", 0, 0);
     // Add each test to the suite
-    CU_add_test(suite, "Test getLeapDays for year 1600", test_getLeapDays_1600);
-    CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
-    CU_add_test(suite, "Test getLeapDays for year 1800", test_getLeapDays_1800);
-    CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
-    CU_add_test(suite, "Test getLeapDays for year 2000", test_getLeapDays_2000);
-    CU_add_test(suite, "Test getLeapDays for year 1500", test_getLeapDays_1500);
-    CU_add_test(suite, "Test getLeapDays for year 1601", test_getLeapDays_1601);
-    CU_add_test(suite, "Test getLeapDays for year 1701", test_getLeapDays_1701);
-    CU_add_test(suite, "Test getLeapDays for year 1801", test_getLeapDays_1801);
-    CU_add_test(suite, "Test getLeapDays for year 1901", test_getLeapDays_1901);
-    CU_add_test(suite, "Test getLeapDays for year 2001", test_getLeapDays_2001);
-    CU_add_test(suite, "Test getLeapDays for year 1602", test_getLeapDays_1602);
-    CU_add_test(suite, "Test getLeapDays for year 1702", test_getLeapDays_1702);
-    CU_add_test(suite, "Test getLeapDays for year 1802", test_getLeapDays_1802);
-    CU_add_test(suite, "Test getLeapDays for year 1902", test_getLeapDays_1902);
-    CU_add_test(suite, "Test getLeapDays for year 2002", test_getLeapDays_2002);
-    CU_add_test(suite, "Test getLeapDays for year 1603", test_getLeapDays_1603);
-    CU_add_test(suite, "Test getLeapDays for year 1703", test_getLeapDays_1703);
-    CU_add_test(suite, "Test getLeapDays for year 1803", test_getLeapDays_1803);
-    CU_add_test(suite, "Test getLeapDays for year 1903", test_getLeapDays_1903);
-    CU_add_test(suite, "Test getLeapDays for year 2003", test_getLeapDays_2003);
-    CU_add_test(suite, "Test getLeapDays for year 1604", test_getLeapDays_1604);
-    CU_add_test(suite, "Test getLeapDays for year 1704", test_getLeapDays_1704);
-    CU_add_test(suite, "Test getLeapDays for year 1804", test_getLeapDays_1804);
-    CU_add_test(suite, "Test getLeapDays for year 1904", test_getLeapDays_1904);
     CU_add_test(suite, "Test getLeapDays for year 2004", test_getLeapDays_2004);
+    CU_add_test(suite, "Test getLeapDays for year 2000", test_getLeapDays_2000);
+    CU_add_test(suite, "Test getLeapDays for year 1990", test_getLeapDays_1990);
+    CU_add_test(suite, "Test getLeapDays for year 1980", test_getLeapDays_1980);
+    CU_add_test(suite, "Test getLeapDays for year 1970", test_getLeapDays_1970);
+    CU_add_test(suite, "Test getLeapDays for year 1960", test_getLeapDays_1960);
+    CU_add_test(suite, "Test getLeapDays for year 2500", test_getLeapDays_2500);
+    CU_add_test(suite, "Test getLeapDays for year 2200", test_getLeapDays_2200);
+    CU_add_test(suite, "Test getLeapDays for year 1800", test_getLeapDays_1800);
+    CU_add_test(suite, "Test getLeapDays for year 3000", test_getLeapDays_3000);
+    CU_add_test(suite, "Test getLeapDays for year 1500", test_getLeapDays_1500);
+    CU_add_test(suite, "Test getLeapDays for year 2100", test_getLeapDays_2100);
+    CU_add_test(suite, "Test getLeapDays for year 2400", test_getLeapDays_2400);
+    CU_add_test(suite, "Test getLeapDays for year 1300", test_getLeapDays_1300);
+    CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
+    CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
 
     // Run the tests
     CU_basic_run_tests();
