@@ -115,6 +115,6 @@ int main() {
     CU_cleanup_registry();
 
     // Check if any tests failed
-    int failures = CU_get_number_of_failures();
+    int failures = CU_get_number_of_failures() + CU_get_number_of_tests_failed();
     return failures;
 }
