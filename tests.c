@@ -131,7 +131,7 @@ void test_getLeapDays_1904() {
 
 // Test for leap days from 1 to 2004
 void test_getLeapDays_2004() {
-    CU_ASSERT(getLeapDays(2005) == 488); // Leap days from 1 to 2004
+    CU_ASSERT(getLeapDays(2004) == 488); // Leap days from 1 to 2004
 }
 
 int main() {
