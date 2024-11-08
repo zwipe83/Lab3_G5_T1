@@ -125,7 +125,7 @@ int main() {
 	}
 	if(CU_get_number_of_tests_run() != 0)
 	{
-		printf("\Tests run: %d.\n", CU_get_number_of_tests_run());
+		printf("\nTests run: %d.\n", CU_get_number_of_tests_run());
 		
 	}
 	if(CU_get_number_of_tests_failed() != 0)
