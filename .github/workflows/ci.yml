@@ -18,7 +18,7 @@ jobs:
       run: sudo apt-get install build-essential libcunit1 libcunit1-dev
 
     - name: Build
-      run: gcc -o cal main.c functions.h functions.c -lcunit
+      run: gcc -o cal main.c functions.h functions.c tests.c -lcunit
 
     - name: Run tests
       run: ./cal
