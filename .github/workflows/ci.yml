@@ -24,4 +24,5 @@ jobs:
       run: |
         echo "Running tests..."
         ./cal
+        echo "Exit code: $?"  # This will print the exit code of the last command
       continue-on-error: false  # This is the default, but it's good to be explicit
