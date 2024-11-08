@@ -66,7 +66,7 @@ void test_getLeapDays_2100() {
 
 // Test for leap days from 1 to 2400
 void test_getLeapDays_2400() {
-    CU_ASSERT(getLeapDays(2400) == 582); // Leap days from 1 to 2399
+    CU_ASSERT(getLeapDays(2400) == 581); // Leap days from 1 to 2399
 }
 
 // Test for leap days from 1 to 1300
