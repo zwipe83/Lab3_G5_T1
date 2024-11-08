@@ -112,7 +112,46 @@ int main() {
     CU_basic_set_mode(CU_BRM_NORMAL);
     CU_set_error_action(CUEA_FAIL);
     printf("\nTests completed with return value %d.\n", CU_basic_run_tests());
+	
+	if(CU_get_number_of_suites_run() != 0)
+	{
+		printf("\nSuites run: %d.\n", CU_get_number_of_suites_run());
+		
+	}
+	if(CU_get_number_of_suites_failed() != 0)
+	{
+		printf("\nSuites failed: %d.\n", CU_get_number_of_suites_failed());
+		
+	}
+	if(CU_get_number_of_tests_run() != 0)
+	{
+		printf("\Tests run: %d.\n", CU_get_number_of_tests_run());
+		
+	}
+	if(CU_get_number_of_tests_failed() != 0)
+	{
+		printf("\nTests failed: %d.\n", CU_get_number_of_tests_failed());
+		
+	}
+	if(CU_get_number_of_asserts() != 0)
+	{
+		printf("\nAsserts run: %d.\n", CU_get_number_of_asserts());
+		
+	}
+	if(CU_get_number_of_successes() != 0)
+	{
+		printf("\nNumber of successes: %d.\n", CU_get_number_of_successes());
+		
+	}
+	if(CU_get_number_of_failures() != 0)
+	{
+		printf("\nNumber of failures: %d.\n", CU_get_number_of_failures());
+		
+	}
+	
     CU_cleanup_registry();
+	
+	
 	
 	return CU_get_error() == CUE_SUCCESS ? 0 : 1;
 }
