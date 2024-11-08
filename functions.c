@@ -157,7 +157,7 @@ int getWeekNumber(int year, int month, int day) {
 /// <param name="month"></param>
 /// <param name="dayCount"></param>
 /// <param name="nextDay"></param>
-void printWeekNumber(int year, int startMonth, int month, int* dayCount, int nextDay)
+void printWeekNumber(int year, int startMonth, int month, const int* dayCount, int nextDay)
 {
 	int y = year;
 	int m = startMonth + month + 1;
