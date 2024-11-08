@@ -149,9 +149,9 @@ int main() {
 		
 	}
 	
+	int failures = CU_get_number_of_tests_failed();
+	
     CU_cleanup_registry();
-	
-	
-	
-	return CU_get_error() == CUE_SUCCESS ? 0 : 1;
+		
+	return failures;
 }
