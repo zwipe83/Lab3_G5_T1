@@ -140,7 +140,33 @@ int main() {
 
     // Create a test suite
     CU_pSuite suite = CU_add_suite("Leap Year Tests", 0, 0);
-    CU_add_test(suite, "Test getLeapDays", test_getLeapDays);
+    // Add each test to the suite
+    CU_add_test(suite, "Test getLeapDays for year 1600", test_getLeapDays_1600);
+    CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
+    CU_add_test(suite, "Test getLeapDays for year 1800", test_getLeapDays_1800);
+    CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
+    CU_add_test(suite, "Test getLeapDays for year 2000", test_getLeapDays_2000);
+    CU_add_test(suite, "Test getLeapDays for year 1500", test_getLeapDays_1500);
+    CU_add_test(suite, "Test getLeapDays for year 1601", test_getLeapDays_1601);
+    CU_add_test(suite, "Test getLeapDays for year 1701", test_getLeapDays_1701);
+    CU_add_test(suite, "Test getLeapDays for year 1801", test_getLeapDays_1801);
+    CU_add_test(suite, "Test getLeapDays for year 1901", test_getLeapDays_1901);
+    CU_add_test(suite, "Test getLeapDays for year 2001", test_getLeapDays_2001);
+    CU_add_test(suite, "Test getLeapDays for year 1602", test_getLeapDays_1602);
+    CU_add_test(suite, "Test getLeapDays for year 1702", test_getLeapDays_1702);
+    CU_add_test(suite, "Test getLeapDays for year 1802", test_getLeapDays_1802);
+    CU_add_test(suite, "Test getLeapDays for year 1902", test_getLeapDays_1902);
+    CU_add_test(suite, "Test getLeapDays for year 2002", test_getLeapDays_2002);
+    CU_add_test(suite, "Test getLeapDays for year 1603", test_getLeapDays_1603);
+    CU_add_test(suite, "Test getLeapDays for year 1703", test_getLeapDays_1703);
+    CU_add_test(suite, "Test getLeapDays for year 1803", test_getLeapDays_1803);
+    CU_add_test(suite, "Test getLeapDays for year 1903", test_getLeapDays_1903);
+    CU_add_test(suite, "Test getLeapDays for year 2003", test_getLeapDays_2003);
+    CU_add_test(suite, "Test getLeapDays for year 1604", test_getLeapDays_1604);
+    CU_add_test(suite, "Test getLeapDays for year 1704", test_getLeapDays_1704);
+    CU_add_test(suite, "Test getLeapDays for year 1804", test_getLeapDays_1804);
+    CU_add_test(suite, "Test getLeapDays for year 1904", test_getLeapDays_1904);
+    CU_add_test(suite, "Test getLeapDays for year 2004", test_getLeapDays_2004);
 
     // Run the tests
     CU_basic_run_tests();
