@@ -21,4 +21,7 @@ jobs:
       run: gcc -o cal functions.h functions.c tests.c -lcunit
 
     - name: Run tests
-      run: ./cal
+      run: |
+        echo "Running tests..."
+        ./cal
+      continue-on-error: false  # This is the default, but it's good to be explicit
