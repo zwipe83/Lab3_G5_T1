@@ -157,7 +157,7 @@ int getWeekNumber(int year, int month, int day) {
 /// <param name="month"></param>
 /// <param name="dayCount"></param>
 /// <param name="nextDay"></param>
-void printWeekNumber(int year, int startMonth, int month, const int* dayCount, int nextDay)
+void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay)
 {
 	int y = year;
 	int m = startMonth + month + 1;
@@ -198,7 +198,7 @@ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeap
 		for (int i = 0; i < endMonth; i++)
 		{
 			int offset = daysInMonths[i];
-			if (i >= startMonth && i < endMonth)
+			if (i >= startMonth)
 			{
 				firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
 				ticks++;
