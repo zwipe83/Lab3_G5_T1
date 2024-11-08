@@ -36,7 +36,7 @@ void test_getLeapDays_1960() {
 
 // Test for leap days from 1 to 2500
 void test_getLeapDays_2500() {
-    CU_ASSERT(getLeapDays(2500) == 609); // Leap days from 1 to 2499
+    CU_ASSERT(getLeapDays(2500) == 606); // Leap days from 1 to 2499
 }
 
 // Test for leap days from 1 to 2200
@@ -46,42 +46,42 @@ void test_getLeapDays_2200() {
 
 // Test for leap days from 1 to 1800
 void test_getLeapDays_1800() {
-    CU_ASSERT(getLeapDays(1800) == 440); // Leap days from 1 to 1799
+    CU_ASSERT(getLeapDays(1800) == 436); // Leap days from 1 to 1799
 }
 
 // Test for leap days from 1 to 3000
 void test_getLeapDays_3000() {
-    CU_ASSERT(getLeapDays(3000) == 730); // Leap days from 1 to 2999
+    CU_ASSERT(getLeapDays(3000) == 727); // Leap days from 1 to 2999
 }
 
 // Test for leap days from 1 to 1500
 void test_getLeapDays_1500() {
-    CU_ASSERT(getLeapDays(1500) == 366); // Leap days from 1 to 1499
+    CU_ASSERT(getLeapDays(1500) == 363); // Leap days from 1 to 1499
 }
 
 // Test for leap days from 1 to 2100
 void test_getLeapDays_2100() {
-    CU_ASSERT(getLeapDays(2100) == 525); // Leap days from 1 to 2099
+    CU_ASSERT(getLeapDays(2100) == 509); // Leap days from 1 to 2099
 }
 
 // Test for leap days from 1 to 2400
 void test_getLeapDays_2400() {
-    CU_ASSERT(getLeapDays(2400) == 609); // Leap days from 1 to 2399
+    CU_ASSERT(getLeapDays(2400) == 582); // Leap days from 1 to 2399
 }
 
 // Test for leap days from 1 to 1300
 void test_getLeapDays_1300() {
-    CU_ASSERT(getLeapDays(1300) == 317); // Leap days from 1 to 1299
+    CU_ASSERT(getLeapDays(1300) == 315); // Leap days from 1 to 1299
 }
 
 // Test for leap days from 1 to 1700
 void test_getLeapDays_1700() {
-    CU_ASSERT(getLeapDays(1700) == 400); // Leap days from 1 to 1699
+    CU_ASSERT(getLeapDays(1700) == 412); // Leap days from 1 to 1699
 }
 
 // Test for leap days from 1 to 1900
 void test_getLeapDays_1900() {
-    CU_ASSERT(getLeapDays(1900) == 456); // Leap days from 1 to 1899
+    CU_ASSERT(getLeapDays(1900) == 460); // Leap days from 1 to 1899
 }
 
 int main() {
