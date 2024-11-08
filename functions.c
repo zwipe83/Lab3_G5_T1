@@ -90,7 +90,7 @@ void printMonthNames(char* months[], int startMonth, int endMonth, char option[]
 /// Print weekday names, "Su-Sa", with consistent spacings
 /// </summary>
 /// <param name="weekdays"></param>
-void printWeekdayNames(char* weekdays[], char option[])
+void printWeekdayNames(const char* weekdays[], char option[])
 {
 	for (int j = 0; j < 3; j++) //TODO: Maybe make this dynamic, 3 is hardcoded
 	{
