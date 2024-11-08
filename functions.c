@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "functions.h"
 
 /// <summary>
@@ -69,7 +70,7 @@ void printYear(int year, char option[])
 /// <param name="months"></param>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-void printMonthNames(char* months[], int startMonth, int endMonth, char option[])
+void printMonthNames(const char* months[], int startMonth, int endMonth, char option[])
 {
 	int firstOffset = 6, secondOffset = 26;
 	if ((strcmp(option, "-w") == 0))
