@@ -108,13 +108,11 @@ int main() {
     CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
     CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
 
-    // Run the tests
-    CU_basic_run_tests();
-
-    // Clean up the registry
+    
+    CU_basic_set_mode(CU_BRM_NORMAL);
+    CU_set_error_action(CUEA_FAIL);
+    printf("\nTests completed with return value %d.\n", CU_basic_run_tests());
     CU_cleanup_registry();
-
-    // Check if any tests failed
-    int failures = CU_get_number_of_failures() + CU_get_number_of_tests_failed();
-    return failures;
+	
+	return CU_get_error() == CUE_SUCCESS ? 0 : 1;
 }
