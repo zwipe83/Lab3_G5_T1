@@ -17,14 +17,8 @@ jobs:
     - name: Install build tools
       run: sudo apt-get install build-essential libcunit1 libcunit1-dev libc6-dev gcc-multilib cppcheck
 
-    - name: Run Code Quality Check
-      run: |
-        echo "Running code quality check..."
-        cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
-      continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
-
     - name: Build
-      run: gcc -o cal functions.h functions.c tests.c -lcunit
+      run: gcc -o cal functions.h functions.c tests.h tests.c -lcunit
 
     - name: Run tests
       run: |
