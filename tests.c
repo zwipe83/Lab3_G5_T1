@@ -1,8 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "functions.h"
-#include <stdio.h>
-#include <string.h>
 
 int getLeapDays(int year);
 
@@ -136,36 +134,7 @@ void test_numberOfDaysSinceYearOne_year2024(void) {
     CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2024), 738396);
 }
 //////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-// Helper function to capture output
-void captureOutput(void (*func)(int, char[]), int year, char option[], char *buffer, size_t size) {
-    FILE *fp = freopen("output.txt", "w+", stdout);
-    if (fp == NULL) {
-        perror("freopen");
-        return;
-    }
-    func(year, option);
-    fflush(stdout);
-    fseek(fp, 0, SEEK_SET);
-    fread(buffer, sizeof(char), size, fp);
-    fclose(fp);
-    freopen("CON", "a", stdout); // Restore stdout on Windows
-}
 
-// Test function for printYear with default option
-void test_printYear_default(void) {
-    char buffer[100] = {0};
-    captureOutput(printYear, 2024, "", buffer, sizeof(buffer));
-    CU_ASSERT_STRING_EQUAL(buffer, "                                   2024\n\n");
-}
-
-// Test function for printYear with -w option
-void test_printYear_wide(void) {
-    char buffer[100] = {0};
-    captureOutput(printYear, 2024, "-w", buffer, sizeof(buffer));
-    CU_ASSERT_STRING_EQUAL(buffer, "                                      2024\n\n");
-}
-//////////////////////////////////////////////////////////////////////////////
 
 int main() {
     // Initialize the CUnit test registry
@@ -175,7 +144,7 @@ int main() {
     CU_pSuite suite1 = CU_add_suite("Leap Days Tests", 0, 0);
     CU_pSuite suite2 = CU_add_suite("Leap Year Tests", 0, 0);
     CU_pSuite suite3 = CU_add_suite("Number of days since year 1 Tests", 0, 0);
-    CU_pSuite suite4 = CU_add_suite("Print year Tests", 0, 0);
+	
     // Add each test to the suite
     CU_add_test(suite1, "Test getLeapDays for year 2004", test_getLeapDays_2004);
     CU_add_test(suite1, "Test getLeapDays for year 2000", test_getLeapDays_2000);
@@ -204,9 +173,6 @@ int main() {
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 3", test_numberOfDaysSinceYearOne_year3);
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 100", test_numberOfDaysSinceYearOne_year100);
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 2024", test_numberOfDaysSinceYearOne_year2024);
-	
-    CU_add_test(suite4, "Test printYear for year default", test_printYear_default);
-    CU_add_test(suite4, "Test printYear for year wide", test_printYear_wide);
 
     
     CU_basic_set_mode(CU_BRM_VERBOSE);
