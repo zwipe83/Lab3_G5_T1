@@ -12,7 +12,7 @@ jobs:
 
   install:
     runs-on: self-hosted
-    
+    needs: checkout
     steps:
     - name: Add GCC to PATH
       run: |
@@ -24,7 +24,7 @@ jobs:
   
   code-check:
     runs-on: self-hosted
-    
+    needs: install    
     steps:
     - name: Run Code Quality Check
       run: |
@@ -35,14 +35,14 @@ jobs:
       # cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
   build:
     runs-on: self-hosted
-  
+    needs: code-check  
     steps:
     - name: Compile
       run: gcc -o cal.exe functions.c tests.c -I"C:/msys64/mingw64/include" -lcunit
 
   test:
     runs-on: self-hosted
-    
+    needs: build    
     steps:
     - name: Run tests
       run: ./cal.exe
