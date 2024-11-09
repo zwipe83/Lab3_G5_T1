@@ -29,7 +29,7 @@ jobs:
     needs: install    
     steps:
     - name: Build
-      run: gcc -o cal -Iinclude src/functions.c src/tests.c -lcunit
+      run: gcc -o cal -Iinclude $GITHUB_WORKSPACE/functions.c $GITHUB_WORKSPACE/tests.c -lcunit
 
   test:
     runs-on: ubuntu-latest
