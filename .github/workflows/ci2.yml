@@ -17,7 +17,6 @@ jobs:
       shell: powershell
       run: |
         $env:Path += ";C:/tools/msys64/usr/bin;C:/tools/msys64/mingw64/bin"
-        export PATH=$PATH:/c/tools/msys64/usr/bin:/c/tools/msys64/mingw64/bin
         C:/tools/msys64/usr/bin/bash -lc "pacman -Syu --noconfirm"
         C:/tools/msys64/usr/bin/bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
         
