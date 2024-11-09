@@ -1,10 +1,6 @@
 name: C Build Test Windows
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -14,24 +10,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install build tools
-      run: |
-        choco install make
-        choco install gcc
-        choco install cunit
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v3
+      with:
+        msystem: MINGW64
+        install: >-
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-cunit
 
-    - name: Run Code Quality Check
+    - name: Compile C code
       run: |
-        echo "Running code quality check..."
-        cppcheck --check-config --enable=all --inconclusive -i tests.c .  # Ignore tests.c
-      continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
-
-    - name: Build
-      run: gcc -o cal functions.h functions.c tests.c -lcunit
+        gcc -o cal.exe functions.h functions.c tests.c -lcunit
 
     - name: Run tests
       run: |
-        echo "Running tests..."
-        ./cal
-        echo "Exit code: $?"  # This will print the exit code of the last command
-      continue-on-error: false  # This is the default, but it's good to be explicit
+        ./cal.exe
