@@ -3,7 +3,7 @@ name: C Build Test Windows
 on: [push, pull_request]
 
 jobs:
-  build:
+  check-build-test:
     runs-on: self-hosted
 
     steps:
