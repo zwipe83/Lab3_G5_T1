@@ -24,13 +24,16 @@ jobs:
       shell: powershell
       run: |
         & 'C:/tools/msys64/usr/bin/bash.exe' -lc "pacman -Ql mingw-w64-x86_64-cunit"
+
+    - name: Set up environment variables
+      run: |
+        echo "C_INCLUDE_PATH=/mingw64/include" >> $GITHUB_ENV
+        echo "LIBRARY_PATH=/mingw64/lib" >> $GITHUB_ENV
         
     - name: Compile C code
-      shell: bash
-      run: |
-        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+      shell: msys2 {0}
+      run: gcc -o cal.exe functions.c tests.c -I/C:/tools/msys64/mingw64/include -L/C:/tools/msys64/mingw64/lib -lcunit
 
     - name: Run tests
-      shell: bash
-      run: |
-        ./cal.exe
+      shell: msys2 {0}
+      run: ./cal.exe
