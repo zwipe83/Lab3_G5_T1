@@ -14,12 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install PowerShell Core
-      run: dotnet tool update --global PowerShell
-
-    - name: Set execution policy
-      run: pwsh -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force"
-
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
@@ -28,26 +22,26 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
-        echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
-      shell: pwsh
+        [Environment]::SetEnvironmentVariable('C_INCLUDE_PATH', 'C:/tools/msys64/mingw64/include', 'Process')
+        [Environment]::SetEnvironmentVariable('LIBRARY_PATH', 'C:/tools/msys64/mingw64/lib', 'Process')
+      shell: powershell
 
     - name: Add MSYS2 to PATH
       run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
-      shell: pwsh
+      shell: powershell
 
     - name: Build
       run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
-      shell: pwsh
+      shell: powershell
 
     - name: List files
       run: ls -la
-      shell: pwsh
+      shell: powershell
 
     - name: Set execute permissions
       run: chmod +x cal.exe
-      shell: pwsh
+      shell: powershell
 
     - name: Run tests
       run: ./cal.exe
-      shell: pwsh
+      shell: powershell
