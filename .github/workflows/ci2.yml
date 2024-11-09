@@ -1,6 +1,10 @@
-name: C Build Test Windows
+name: C Build Test (Windows)
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -18,24 +22,26 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
-        echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
+        [Environment]::SetEnvironmentVariable('C_INCLUDE_PATH', 'C:/tools/msys64/mingw64/include', 'Process')
+        [Environment]::SetEnvironmentVariable('LIBRARY_PATH', 'C:/tools/msys64/mingw64/lib', 'Process')
+      shell: powershell
 
     - name: Add MSYS2 to PATH
       run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+      shell: powershell
 
     - name: Build
-      shell: msys2 {0}
       run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+      shell: powershell
 
     - name: List files
-      shell: msys2 {0}
       run: ls -la
+      shell: powershell
 
     - name: Set execute permissions
-      shell: msys2 {0}
       run: chmod +x cal.exe
+      shell: powershell
 
     - name: Run tests
-      shell: msys2 {0}
       run: ./cal.exe
+      shell: powershell
