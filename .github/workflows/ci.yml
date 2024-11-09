@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: List src directory contents
       run: ls -la $GITHUB_WORKSPACE
@@ -28,6 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: install    
     steps:
+    
+    - name: List src directory contents
+      run: ls -la $GITHUB_WORKSPACE
+      
     - name: Build
       run: gcc -o cal -Iinclude $GITHUB_WORKSPACE/functions.c $GITHUB_WORKSPACE/tests.c -lcunit
 
