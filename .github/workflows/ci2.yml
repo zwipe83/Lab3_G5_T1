@@ -35,9 +35,11 @@ jobs:
         echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
       
     - name: Compile C code
-      shell: msys2 {0}
-      run: gcc -o cal.exe functions.c tests.c -I/C:/tools/msys64/mingw64/include -L/C:/tools/msys64/mingw64/lib -lcunit
+      shell: bash
+      run: |
+        gcc -o cal.exe functions.c tests.c -I/C:/tools/msys64/mingw64/include -L/C:/tools/msys64/mingw64/lib -lcunit
 
     - name: Run tests
-      shell: msys2 {0}
-      run: ./cal.exe
+      shell: bash
+      run: |
+        ./cal.exe
