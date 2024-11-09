@@ -15,7 +15,11 @@ jobs:
       with:
         update: true
         install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
-
+        
+    - name: Set execution policy
+      run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+      shell: pwsh
+      
     - name: Set up environment variables
       run: |
         echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
