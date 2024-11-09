@@ -1,12 +1,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "functions.h"
+#include "tests.h"
 #include <stdlib.h>
-
-// Function prototype
-int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
-
-int getLeapDays(int year);
 
 // Test for leap days from 1 to 2004
 void test_getLeapDays_2004() {
