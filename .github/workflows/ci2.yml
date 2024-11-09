@@ -15,18 +15,18 @@ jobs:
         choco install msys2
         refreshenv
 
-    - name: Set up MSYS2
-      shell: msys2 {0}
+    - name: Set up MSYS2 environment
+      shell: bash
       run: |
-        pacman -Syu --noconfirm
-        pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
+        C:\tools\msys64\usr\bin\bash -lc "pacman -Syu --noconfirm"
+        C:\tools\msys64\usr\bin\bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
 
     - name: Compile C code
-      shell: msys2 {0}
+      shell: bash
       run: |
-        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+        C:\tools\msys64\usr\bin\bash -lc "gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit"
 
     - name: Run tests
-      shell: msys2 {0}
+      shell: bash
       run: |
-        ./cal.exe
+        C:\tools\msys64\usr\bin\bash -lc "./cal.exe"
