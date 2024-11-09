@@ -16,30 +16,30 @@ jobs:
 
     - name: Add MSYS2 to PATH
       run: echo "C:/msys64/mingw64/bin" >> $GITHUB_PATH
-      shell: msys2
+      shell: bash
 
     - name: Set up environment variables
       run: |
         echo "export C_INCLUDE_PATH=/mingw64/include" >> $GITHUB_ENV
         echo "export LIBRARY_PATH=/mingw64/lib" >> $GITHUB_ENV
-      shell: msys2
+      shell: bash
 
     - name: Verify GCC Installation
       run: gcc --version
-      shell: msys2
+      shell: bash
 
     - name: Build
       run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
-      shell: msys2
+      shell: bash
 
     - name: List files
       run: ls -la
-      shell: msys2
+      shell: bash
 
     - name: Set execute permissions
       run: chmod +x cal.exe
-      shell: msys2
+      shell: bash
 
     - name: Run tests
       run: ./cal.exe
-      shell: msys2
+      shell: bash
