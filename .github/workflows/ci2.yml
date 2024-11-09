@@ -3,13 +3,17 @@ name: C Build Test Windows
 on: [push, pull_request]
 
 jobs:
-  check-build-test:
+  checkout:
     runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
+  install:
+    runs-on: self-hosted
+    
+    steps:
     - name: Add GCC to PATH
       run: |
         echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH
@@ -17,7 +21,11 @@ jobs:
         
     - name: Verify GCC installation
       run: gcc --version
-
+  
+  code-check:
+    runs-on: self-hosted
+    
+    steps:
     - name: Run Code Quality Check
       run: |
         echo "Running code quality check..."
@@ -25,9 +33,16 @@ jobs:
       continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
       
       # cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
-
+  build:
+    runs-on: self-hosted
+  
+    steps:
     - name: Compile
       run: gcc -o cal.exe functions.c tests.c -I"C:/msys64/mingw64/include" -lcunit
 
+  test:
+    runs-on: self-hosted
+    
+    steps:
     - name: Run tests
       run: ./cal.exe
