@@ -20,7 +20,7 @@ jobs:
 
     - name: Compile C code
       run: |
-        gcc -o cal.exe functions.h functions.c tests.c -lcunit
+        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
 
     - name: Run tests
       run: |
