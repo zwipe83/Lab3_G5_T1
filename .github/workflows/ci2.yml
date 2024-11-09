@@ -1,45 +1,53 @@
-name: C Build Test Windows
+name: C Build Test (Windows)
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Install PowerShell Core
+      run: dotnet tool update --global PowerShell
+
+    - name: Set execution policy
+      run: pwsh -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force"
 
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
         update: true
         install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
-        
-    - name: Set execution policy
-      run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-      shell: pwsh
-      
+
     - name: Set up environment variables
       run: |
         echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
         echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
+      shell: pwsh
 
     - name: Add MSYS2 to PATH
       run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+      shell: pwsh
 
     - name: Build
-      shell: msys2 {0}
       run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+      shell: pwsh
 
     - name: List files
-      shell: msys2 {0}
       run: ls -la
+      shell: pwsh
 
     - name: Set execute permissions
-      shell: msys2 {0}
       run: chmod +x cal.exe
+      shell: pwsh
 
     - name: Run tests
-      shell: msys2 {0}
       run: ./cal.exe
+      shell: pwsh
