@@ -8,23 +8,24 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Install MSYS2
       run: choco install msys2
 
     - name: Set up MSYS2 environment
-      shell: bash
+      shell: powershell
       run: |
-        C:\tools\msys64\usr\bin\bash -lc "pacman -Syu --noconfirm"
-        C:\tools\msys64\usr\bin\bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
+        $env:Path += ";C:/tools/msys64/usr/bin;C:/tools/msys64/mingw64/bin"
+        C:/tools/msys64/usr/bin/bash -lc "pacman -Syu --noconfirm"
+        C:/tools/msys64/usr/bin/bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
 
     - name: Compile C code
       shell: bash
       run: |
-        C:\tools\msys64\usr\bin\bash -lc "gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit"
+        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
 
     - name: Run tests
       shell: bash
       run: |
-        C:\tools\msys64\usr\bin\bash -lc "./cal.exe"
+        ./cal.exe
