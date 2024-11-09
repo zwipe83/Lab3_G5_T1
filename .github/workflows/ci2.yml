@@ -19,7 +19,7 @@ jobs:
       run: gcc --version
 
     - name: Compile
-      run: gcc -o cal.exe functions.c tests.c -lcunit
+      run: gcc -o cal.exe functions.c tests.c -I"C:/msys64/mingw64/include" -lcunit
 
     - name: Run tests
       run: ./cal.exe
