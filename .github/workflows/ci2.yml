@@ -18,6 +18,12 @@ jobs:
     - name: Verify GCC installation
       run: gcc --version
 
+    - name: Run Code Quality Check
+      run: |
+        echo "Running code quality check..."
+        cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
+      continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
+
     - name: Compile
       run: gcc -o cal.exe functions.c tests.c -I"C:/msys64/mingw64/include" -lcunit
 
