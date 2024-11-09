@@ -21,17 +21,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Download code artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: source-code
-        path: $GITHUB_WORKSPACE
-        
-    - name: List src directory contents
-      run: ls -la $GITHUB_WORKSPACE
-      
     - name: Build
-      run: gcc -o cal -Iinclude $GITHUB_WORKSPACE/functions.c $GITHUB_WORKSPACE/tests.c -lcunit
+      run: gcc -o cal -Iinclude functions.c tests.c -lcunit
 
   test:
     runs-on: ubuntu-latest
