@@ -21,7 +21,7 @@ jobs:
     - name: Run Code Quality Check
       run: |
         echo "Running code quality check..."
-        cppcheck --enable=all --inconclusive --std=c11 --platform=win64 -I"C:\msys64\mingw64\include" functions.c functions.h main.c -i tests.c
+        cppcheck --enable=all --inconclusive --std=c11 --platform=win64 --force -I"C:\msys64\mingw64\include" functions.c functions.h main.c -i tests.c
       continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
       
       # cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
