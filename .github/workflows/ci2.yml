@@ -20,14 +20,18 @@ jobs:
         update: true
         install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
 
+    - name: Add MSYS2 to PATH
+      run: echo "C:/tools/msys64/mingw64/bin" >> $GITHUB_PATH
+      shell: powershell
+
     - name: Set up environment variables
       run: |
         [Environment]::SetEnvironmentVariable('C_INCLUDE_PATH', 'C:/tools/msys64/mingw64/include', 'Process')
         [Environment]::SetEnvironmentVariable('LIBRARY_PATH', 'C:/tools/msys64/mingw64/lib', 'Process')
       shell: powershell
 
-    - name: Add MSYS2 to PATH
-      run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+    - name: Verify GCC Installation
+      run: gcc --version
       shell: powershell
 
     - name: Build
