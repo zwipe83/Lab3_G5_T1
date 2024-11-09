@@ -8,24 +8,25 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
+
+    - name: Install MSYS2
+      run: |
+        choco install msys2
+        refreshenv
 
     - name: Set up MSYS2
-      uses: msys2/setup-msys2@v2
-      with:
-        msystem: MINGW64
-        install: >-
-          mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-cunit
-
-    - name: List directory structure
+      shell: msys2 {0}
       run: |
-        ls -R /mingw64/include
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
 
     - name: Compile C code
+      shell: msys2 {0}
       run: |
-        gcc -o cal.exe functions.c tests.c -I/mingw64/include/CUnit -L/mingw64/lib -lcunit
+        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
 
     - name: Run tests
+      shell: msys2 {0}
       run: |
         ./cal.exe
