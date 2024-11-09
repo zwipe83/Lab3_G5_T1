@@ -84,12 +84,38 @@ void test_getLeapDays_1900() {
     CU_ASSERT(getLeapDays(1900) == 460); // Leap days from 1 to 1899
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Test function for leap year divisible by 400
+void test_leapYear_divisibleBy400(void) {
+    CU_ASSERT_TRUE(getLeapYear(2000));
+    CU_ASSERT_TRUE(getLeapYear(2400));
+}
+
+// Test function for leap year divisible by 4 but not 100
+void test_leapYear_divisibleBy4Not100(void) {
+    CU_ASSERT_TRUE(getLeapYear(2020));
+}
+
+// Test function for non-leap year divisible by 100 but not 400
+void test_nonLeapYear_divisibleBy100Not400(void) {
+    CU_ASSERT_FALSE(getLeapYear(1900));
+    CU_ASSERT_FALSE(getLeapYear(2100));
+}
+
+// Test function for non-leap year not divisible by 4
+void test_nonLeapYear_notDivisibleBy4(void) {
+    CU_ASSERT_FALSE(getLeapYear(2019));
+}
+//////////////////////////////////////////////////////////////////////////////
+
+
 int main() {
     // Initialize the CUnit test registry
     CU_initialize_registry();
 
     // Create a test suite
-    CU_pSuite suite = CU_add_suite("Leap Year Tests", 0, 0);
+    CU_pSuite suite = CU_add_suite("Leap Days Tests", 0, 0);
+    CU_pSuite suite1 = CU_add_suite("Leap Year Tests", 0, 0);
     // Add each test to the suite
     CU_add_test(suite, "Test getLeapDays for year 2004", test_getLeapDays_2004);
     CU_add_test(suite, "Test getLeapDays for year 2000", test_getLeapDays_2000);
@@ -107,6 +133,11 @@ int main() {
     CU_add_test(suite, "Test getLeapDays for year 1300", test_getLeapDays_1300);
     CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
     CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
+
+    CU_add_test(suite1, "Test getLeapYear leap year divisible by 400", test_leapYear_divisibleBy400);
+    CU_add_test(suite1, "Test getLeapYear leap year divisible by 4 not 100", test_leapYear_divisibleBy4Not100);
+    CU_add_test(suite1, "Test getLeapYear non-leap year divisible by 100 not by 400", test_nonLeapYear_divisibleBy100Not400);
+    CU_add_test(suite1, "Test getLeapYear non-leap year not divisible by 4", test_nonLeapYear_notDivisibleBy4);
 
     
     CU_basic_set_mode(CU_BRM_NORMAL);
