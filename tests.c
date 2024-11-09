@@ -1,6 +1,10 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "functions.h"
+#include <stdlib.h>
+
+// Function prototype
+int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
 
 int getLeapDays(int year);
 
@@ -134,7 +138,29 @@ void test_numberOfDaysSinceYearOne_year2024(void) {
     CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2024), 738396);
 }
 //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+// Test function for getFirstDayInMonths
+void test_getFirstDayInMonths(void) {
+    int* result;
 
+    // Test case 1: Non-leap year, January to March
+    result = getFirstDayInMonths(0, 3, 0, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 0); // January 1st is Sunday
+    CU_ASSERT_EQUAL(result[1], 3); // February 1st is Wednesday
+    CU_ASSERT_EQUAL(result[2], 3); // March 1st is Wednesday
+    free(result);
+
+    // Test case 2: Leap year, January to March
+    result = getFirstDayInMonths(0, 3, 0, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 0); // January 1st is Sunday
+    CU_ASSERT_EQUAL(result[1], 3); // February 1st is Wednesday
+    CU_ASSERT_EQUAL(result[2], 4); // March 1st is Thursday
+    free(result);
+
+    // Add more test cases as needed
+}
 
 int main() {
     // Initialize the CUnit test registry
@@ -144,6 +170,7 @@ int main() {
     CU_pSuite suite1 = CU_add_suite("Leap Days Tests", 0, 0);
     CU_pSuite suite2 = CU_add_suite("Leap Year Tests", 0, 0);
     CU_pSuite suite3 = CU_add_suite("Number of days since year 1 Tests", 0, 0);
+    CU_pSuite suite4 = CU_add_suite("First weekday of first week Tests", 0, 0);
 	
     // Add each test to the suite
     CU_add_test(suite1, "Test getLeapDays for year 2004", test_getLeapDays_2004);
@@ -173,6 +200,8 @@ int main() {
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 3", test_numberOfDaysSinceYearOne_year3);
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 100", test_numberOfDaysSinceYearOne_year100);
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 2024", test_numberOfDaysSinceYearOne_year2024);
+	
+    CU_add_test(suite4, "Test getFirstDayInMonths for both leap year and non-leap year", test_getFirstDayInMonths);
 
     
     CU_basic_set_mode(CU_BRM_VERBOSE);
