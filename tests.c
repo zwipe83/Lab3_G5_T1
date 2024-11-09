@@ -156,6 +156,109 @@ void test_getFirstDayInMonths(void) {
 
     // Add more test cases as needed
 }
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+void test_getNumberOfDaysPerMonth(void) {
+    // Test case 1: Non-leap year, January to March
+    int* result = getNumberOfDaysPerMonth(0, 3, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 28);
+    CU_ASSERT_EQUAL(result[2], 31);
+    free(result);
+
+    // Test case 2: Leap year, January to March
+    result = getNumberOfDaysPerMonth(0, 3, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 29);
+    CU_ASSERT_EQUAL(result[2], 31);
+    free(result);
+
+    // Test case 3: Non-leap year, February to April
+    result = getNumberOfDaysPerMonth(1, 4, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 28);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 4: Leap year, February to April
+    result = getNumberOfDaysPerMonth(1, 4, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 29);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 5: Non-leap year, April to June
+    result = getNumberOfDaysPerMonth(3, 6, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 30);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 6: Leap year, April to June
+    result = getNumberOfDaysPerMonth(3, 6, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 30);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 7: Non-leap year, July to September
+    result = getNumberOfDaysPerMonth(6, 9, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 8: Leap year, July to September
+    result = getNumberOfDaysPerMonth(6, 9, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 31);
+    CU_ASSERT_EQUAL(result[2], 30);
+    free(result);
+
+    // Test case 9: Non-leap year, October to December
+    result = getNumberOfDaysPerMonth(9, 12, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 30);
+    CU_ASSERT_EQUAL(result[2], 31);
+    free(result);
+
+    // Test case 10: Leap year, October to December
+    result = getNumberOfDaysPerMonth(9, 12, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_EQUAL(result[0], 31);
+    CU_ASSERT_EQUAL(result[1], 30);
+    CU_ASSERT_EQUAL(result[2], 31);
+    free(result);
+
+    // Test case 11: Non-leap year, January to December
+    result = getNumberOfDaysPerMonth(0, 12, 0);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    int expectedDaysNonLeap[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    for (int i = 0; i < 12; i++) {
+        CU_ASSERT_EQUAL(result[i], expectedDaysNonLeap[i]);
+    }
+    free(result);
+
+    // Test case 12: Leap year, January to December
+    result = getNumberOfDaysPerMonth(0, 12, 1);
+    CU_ASSERT_PTR_NOT_NULL(result);
+    int expectedDaysLeap[] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    for (int i = 0; i < 12; i++) {
+        CU_ASSERT_EQUAL(result[i], expectedDaysLeap[i]);
+    }
+    free(result);
+}
+
+//////////////////////////////////////////////////////////////////////////////
 
 int main() {
     // Initialize the CUnit test registry
@@ -166,6 +269,7 @@ int main() {
     CU_pSuite suite2 = CU_add_suite("Leap Year Tests", 0, 0);
     CU_pSuite suite3 = CU_add_suite("Number of days since year 1 Tests", 0, 0);
     CU_pSuite suite4 = CU_add_suite("First weekday of first week Tests", 0, 0);
+    CU_pSuite suite5 = CU_add_suite("Number of days per month Tests", 0, 0);
 	
     // Add each test to the suite
     CU_add_test(suite1, "Test getLeapDays for year 2004", test_getLeapDays_2004);
@@ -197,6 +301,8 @@ int main() {
     CU_add_test(suite3, "Test numberOfDaysSinceYear for year 2024", test_numberOfDaysSinceYearOne_year2024);
 	
     CU_add_test(suite4, "Test getFirstDayInMonths for both leap year and non-leap year", test_getFirstDayInMonths);
+	
+    CU_add_test(suite5, "Test getNumberOfDaysPerMonth for both leap year and non-leap year", test_getNumberOfDaysPerMonth);
 
     
     CU_basic_set_mode(CU_BRM_VERBOSE);
