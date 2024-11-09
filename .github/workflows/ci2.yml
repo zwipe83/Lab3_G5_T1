@@ -21,7 +21,7 @@ jobs:
         install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
 
     - name: Add MSYS2 to PATH
-      run: echo "C:/tools/msys64/mingw64/bin" >> $GITHUB_PATH
+      run: echo "C:/msys64/mingw64/bin" >> $GITHUB_PATH
       shell: powershell
 
     - name: Set up environment variables
