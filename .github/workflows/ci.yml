@@ -48,11 +48,12 @@ jobs:
 
     - name: Build
       run: |
-        if [ $RUNNER_OS == 'Windows' ]; then
+        if ($env:RUNNER_OS -eq 'Windows') {
           gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
-        else
+        } else {
           gcc -o cal functions.h functions.c tests.c -lcunit
-        fi
+        }
+      shell: pwsh
 
     - name: List files
       run: ls -la
@@ -63,8 +64,9 @@ jobs:
 
     - name: Run tests
       run: |
-        if [ $RUNNER_OS == 'Windows' ]; then
+        if ($env:RUNNER_OS -eq 'Windows') {
           ./cal.exe
-        else
+        } else {
           ./cal
-        fi
+        }
+      shell: pwsh
