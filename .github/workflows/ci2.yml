@@ -10,6 +10,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Add GCC to PATH
+      run: echo "::add-path::C:\msys64\mingw64\bin"
+
     - name: Verify GCC installation
       run: gcc --version
 
