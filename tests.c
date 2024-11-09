@@ -136,7 +136,7 @@ void test_numberOfDaysSinceYearOne_year2024(void) {
 //////////////////////////////////////////////////////////////////////////////
 
 
-int main2() {
+int main() {
     // Initialize the CUnit test registry
     CU_initialize_registry();
 
