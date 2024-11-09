@@ -1,4 +1,4 @@
-name: C Build Test Windows
+name: Build and Test
 
 on: [push, pull_request]
 
@@ -8,36 +8,33 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Install MSYS2
-      run: choco install msys2
-
-    - name: Set up MSYS2 environment
-      shell: powershell
-      run: |
-        $env:Path += ";C:/tools/msys64/usr/bin;C:/tools/msys64/mingw64/bin"
-        C:/tools/msys64/usr/bin/bash -lc "pacman -Syu --noconfirm"
-        C:/tools/msys64/usr/bin/bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
-        
-    - name: Verify CUnit installation
-      shell: powershell
-      run: |
-        & 'C:/tools/msys64/usr/bin/bash.exe' -lc "pacman -Ql mingw-w64-x86_64-cunit"
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
 
     - name: Set up environment variables
       run: |
-        echo "C_INCLUDE_PATH=/mingw64/include" >> $GITHUB_ENV
-        echo "LIBRARY_PATH=/mingw64/lib" >> $GITHUB_ENV
-        
+        echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
+        echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
+
     - name: Add MSYS2 to PATH
-      run: |
-        echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
-      
-    - name: Compile C code
-      shell: bash
-      run: |
-        gcc -o cal.exe functions.c tests.c -I/C:/tools/msys64/mingw64/include -L/C:/tools/msys64/mingw64/lib -lcunit
+      run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+
+    - name: Build
+      shell: msys2 {0}
+      run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+
+    - name: List files
+      shell: msys2 {0}
+      run: ls -la
+
+    - name: Set execute permissions
+      shell: msys2 {0}
+      run: chmod +x cal.exe
 
     - name: Run tests
       shell: msys2 {0}
