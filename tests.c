@@ -83,7 +83,7 @@ void test_getLeapDays_1700() {
 void test_getLeapDays_1900() {
     CU_ASSERT(getLeapDays(1900) == 460); // Leap days from 1 to 1899
 }
-
+//////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 // Test function for leap year divisible by 400
 void test_leapYear_divisibleBy400(void) {
@@ -107,6 +107,33 @@ void test_nonLeapYear_notDivisibleBy4(void) {
     CU_ASSERT_FALSE(getLeapYear(2019));
 }
 //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// Test function for year 1
+void test_numberOfDaysSinceYearOne_year1(void) {
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(1), 1);
+}
+
+// Test function for year 2
+void test_numberOfDaysSinceYearOne_year2(void) {
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2), 366);
+}
+
+// Test function for year 3
+void test_numberOfDaysSinceYearOne_year3(void) {
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(3), 731);
+}
+
+// Test function for year 100
+void test_numberOfDaysSinceYearOne_year100(void) {
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(100), 36501);
+}
+
+// Test function for year 2024
+void test_numberOfDaysSinceYearOne_year2024(void) {
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2024), 738241);
+}
+//////////////////////////////////////////////////////////////////////////////
 
 
 int main() {
@@ -114,30 +141,37 @@ int main() {
     CU_initialize_registry();
 
     // Create a test suite
-    CU_pSuite suite = CU_add_suite("Leap Days Tests", 0, 0);
-    CU_pSuite suite1 = CU_add_suite("Leap Year Tests", 0, 0);
+    CU_pSuite suite1 = CU_add_suite("Leap Days Tests", 0, 0);
+    CU_pSuite suite2 = CU_add_suite("Leap Year Tests", 0, 0);
+    CU_pSuite suite3 = CU_add_suite("Number of days since year 1 Tests", 0, 0);
     // Add each test to the suite
-    CU_add_test(suite, "Test getLeapDays for year 2004", test_getLeapDays_2004);
-    CU_add_test(suite, "Test getLeapDays for year 2000", test_getLeapDays_2000);
-    CU_add_test(suite, "Test getLeapDays for year 1990", test_getLeapDays_1990);
-    CU_add_test(suite, "Test getLeapDays for year 1980", test_getLeapDays_1980);
-    CU_add_test(suite, "Test getLeapDays for year 1970", test_getLeapDays_1970);
-    CU_add_test(suite, "Test getLeapDays for year 1960", test_getLeapDays_1960);
-    CU_add_test(suite, "Test getLeapDays for year 2500", test_getLeapDays_2500);
-    CU_add_test(suite, "Test getLeapDays for year 2200", test_getLeapDays_2200);
-    CU_add_test(suite, "Test getLeapDays for year 1800", test_getLeapDays_1800);
-    CU_add_test(suite, "Test getLeapDays for year 3000", test_getLeapDays_3000);
-    CU_add_test(suite, "Test getLeapDays for year 1500", test_getLeapDays_1500);
-    CU_add_test(suite, "Test getLeapDays for year 2100", test_getLeapDays_2100);
-    CU_add_test(suite, "Test getLeapDays for year 2400", test_getLeapDays_2400);
-    CU_add_test(suite, "Test getLeapDays for year 1300", test_getLeapDays_1300);
-    CU_add_test(suite, "Test getLeapDays for year 1700", test_getLeapDays_1700);
-    CU_add_test(suite, "Test getLeapDays for year 1900", test_getLeapDays_1900);
+    CU_add_test(suite1, "Test getLeapDays for year 2004", test_getLeapDays_2004);
+    CU_add_test(suite1, "Test getLeapDays for year 2000", test_getLeapDays_2000);
+    CU_add_test(suite1, "Test getLeapDays for year 1990", test_getLeapDays_1990);
+    CU_add_test(suite1, "Test getLeapDays for year 1980", test_getLeapDays_1980);
+    CU_add_test(suite1, "Test getLeapDays for year 1970", test_getLeapDays_1970);
+    CU_add_test(suite1, "Test getLeapDays for year 1960", test_getLeapDays_1960);
+    CU_add_test(suite1, "Test getLeapDays for year 2500", test_getLeapDays_2500);
+    CU_add_test(suite1, "Test getLeapDays for year 2200", test_getLeapDays_2200);
+    CU_add_test(suite1, "Test getLeapDays for year 1800", test_getLeapDays_1800);
+    CU_add_test(suite1, "Test getLeapDays for year 3000", test_getLeapDays_3000);
+    CU_add_test(suite1, "Test getLeapDays for year 1500", test_getLeapDays_1500);
+    CU_add_test(suite1, "Test getLeapDays for year 2100", test_getLeapDays_2100);
+    CU_add_test(suite1, "Test getLeapDays for year 2400", test_getLeapDays_2400);
+    CU_add_test(suite1, "Test getLeapDays for year 1300", test_getLeapDays_1300);
+    CU_add_test(suite1, "Test getLeapDays for year 1700", test_getLeapDays_1700);
+    CU_add_test(suite1, "Test getLeapDays for year 1900", test_getLeapDays_1900);
 
-    CU_add_test(suite1, "Test getLeapYear leap year divisible by 400", test_leapYear_divisibleBy400);
-    CU_add_test(suite1, "Test getLeapYear leap year divisible by 4 not 100", test_leapYear_divisibleBy4Not100);
-    CU_add_test(suite1, "Test getLeapYear non-leap year divisible by 100 not by 400", test_nonLeapYear_divisibleBy100Not400);
-    CU_add_test(suite1, "Test getLeapYear non-leap year not divisible by 4", test_nonLeapYear_notDivisibleBy4);
+    CU_add_test(suite2, "Test getLeapYear leap year divisible by 400", test_leapYear_divisibleBy400);
+    CU_add_test(suite2, "Test getLeapYear leap year divisible by 4 not 100", test_leapYear_divisibleBy4Not100);
+    CU_add_test(suite2, "Test getLeapYear non-leap year divisible by 100 not by 400", test_nonLeapYear_divisibleBy100Not400);
+    CU_add_test(suite2, "Test getLeapYear non-leap year not divisible by 4", test_nonLeapYear_notDivisibleBy4);
+
+    CU_add_test(suite3, "Test numberOfDaysSinceYear for year 1", test_numberOfDaysSinceYearOne_year1);
+    CU_add_test(suite3, "Test numberOfDaysSinceYear for year 2", test_numberOfDaysSinceYearOne_year2);
+    CU_add_test(suite3, "Test numberOfDaysSinceYear for year 3", test_numberOfDaysSinceYearOne_year3);
+    CU_add_test(suite3, "Test numberOfDaysSinceYear for year 100", test_numberOfDaysSinceYearOne_year100);
+    CU_add_test(suite3, "Test numberOfDaysSinceYear for year 2024", test_numberOfDaysSinceYearOne_year2024);
 
     
     CU_basic_set_mode(CU_BRM_NORMAL);
