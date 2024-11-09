@@ -26,7 +26,7 @@ jobs:
     needs: install    
     steps:
     - name: Build
-      run: gcc -o cal functions.h functions.c tests.h tests.c -lcunit
+      run: gcc -o cal -Iinclude src/functions.c src/tests.c -lcunit
 
   test:
     runs-on: ubuntu-latest
