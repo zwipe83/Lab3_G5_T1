@@ -39,7 +39,14 @@ jobs:
       run: |
         gcc -o cal.exe functions.c tests.c -I/C:/tools/msys64/mingw64/include -L/C:/tools/msys64/mingw64/lib -lcunit
 
+    - name: List files
+      shell: msys2 {0}
+      run: ls -la
+
+    - name: Set execute permissions
+      shell: msys2 {0}
+      run: chmod +x cal.exe
+
     - name: Run tests
-      shell: bash
-      run: |
-        ./cal.exe
+      shell: msys2 {0}
+      run: ./cal.exe
