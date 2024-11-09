@@ -21,9 +21,9 @@ jobs:
         C:/tools/msys64/usr/bin/bash -lc "pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit"
         
     - name: Verify CUnit installation
-      shell: bash
+      shell: powershell
       run: |
-        pacman -Ql mingw-w64-x86_64-cunit
+        & 'C:/tools/msys64/usr/bin/bash.exe' -lc "pacman -Ql mingw-w64-x86_64-cunit"
         
     - name: Compile C code
       shell: bash
