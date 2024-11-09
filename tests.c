@@ -209,7 +209,7 @@ int main() {
     CU_add_test(suite4, "Test printYear for year wide", test_printYear_wide);
 
     
-    CU_basic_set_mode(CU_BRM_NORMAL);
+    CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_set_error_action(CUEA_FAIL);
     printf("\nTests completed with return value %d.\n", CU_basic_run_tests());
 	
