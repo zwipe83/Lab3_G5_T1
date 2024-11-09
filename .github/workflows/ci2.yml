@@ -30,8 +30,9 @@ jobs:
         echo "C_INCLUDE_PATH=/mingw64/include" >> $GITHUB_ENV
         echo "LIBRARY_PATH=/mingw64/lib" >> $GITHUB_ENV
         
-     - name: Add MSYS2 to PATH
-      run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+    - name: Add MSYS2 to PATH
+      run: |
+        echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
       
     - name: Compile C code
       shell: msys2 {0}
