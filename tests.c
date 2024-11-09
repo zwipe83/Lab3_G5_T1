@@ -1,6 +1,8 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "functions.h"
+#include <stdio.h>
+#include <string.h>
 
 int getLeapDays(int year);
 
