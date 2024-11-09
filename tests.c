@@ -149,7 +149,7 @@ void captureOutput(void (*func)(int, char[]), int year, char option[], char *buf
     fseek(fp, 0, SEEK_SET);
     fread(buffer, sizeof(char), size, fp);
     fclose(fp);
-    freopen("/dev/tty", "a", stdout); // Restore stdout
+    freopen("CON", "a", stdout); // Restore stdout on Windows
 }
 
 // Test function for printYear with default option
