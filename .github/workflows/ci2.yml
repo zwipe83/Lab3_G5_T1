@@ -1,0 +1,41 @@
+name: C Build Test Windows
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
+
+    - name: Set up environment variables
+      run: |
+        echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
+        echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
+
+    - name: Add MSYS2 to PATH
+      run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
+
+    - name: Build
+      shell: msys2 {0}
+      run: gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+
+    - name: List files
+      shell: msys2 {0}
+      run: ls -la
+
+    - name: Set execute permissions
+      shell: msys2 {0}
+      run: chmod +x cal.exe
+
+    - name: Run tests
+      shell: msys2 {0}
+      run: ./cal.exe

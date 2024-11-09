@@ -1,4 +1,4 @@
-name: C Build Test
+name: C Build Test Ubuntu
 
 on:
   push:
@@ -8,65 +8,27 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install build tools (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
+    - name: Install build tools
       run: sudo apt-get install build-essential libcunit1 libcunit1-dev libc6-dev gcc-multilib cppcheck
 
-    - name: Set up MSYS2 (Windows)
-      if: matrix.os == 'windows-latest'
-      uses: msys2/setup-msys2@v2
-      with:
-        update: true
-        install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cunit
-
-    - name: Set up environment variables (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        echo "C_INCLUDE_PATH=C:/tools/msys64/mingw64/include" >> $GITHUB_ENV
-        echo "LIBRARY_PATH=C:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
-
-    - name: Add MSYS2 to PATH (Windows)
-      if: matrix.os == 'windows-latest'
-      run: echo "C:/tools/msys64/usr/bin" >> $GITHUB_PATH
-
-    - name: Run Code Quality Check (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
+    - name: Run Code Quality Check
       run: |
         echo "Running code quality check..."
         cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
       continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
 
     - name: Build
-      run: |
-        if ($env:RUNNER_OS -eq 'Windows') {
-          gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
-        } else {
-          gcc -o cal functions.h functions.c tests.c -lcunit
-        }
-      shell: pwsh
-
-    - name: List files
-      run: ls -la
-
-    - name: Set execute permissions (Windows)
-      if: matrix.os == 'windows-latest'
-      run: chmod +x cal.exe
+      run: gcc -o cal functions.h functions.c tests.c -lcunit
 
     - name: Run tests
       run: |
-        if ($env:RUNNER_OS -eq 'Windows') {
-          ./cal.exe
-        } else {
-          ./cal
-        }
-      shell: pwsh
+        echo "Running tests..."
+        ./cal
+        echo "Exit code: $?"  # This will print the exit code of the last command
+      continue-on-error: false  # This is the default, but it's good to be explicit
