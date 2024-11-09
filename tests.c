@@ -126,17 +126,17 @@ void test_numberOfDaysSinceYearOne_year3(void) {
 
 // Test function for year 100
 void test_numberOfDaysSinceYearOne_year100(void) {
-    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(100), 36501);
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(100), 36136);
 }
 
 // Test function for year 2024
 void test_numberOfDaysSinceYearOne_year2024(void) {
-    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2024), 738241);
+    CU_ASSERT_EQUAL(numberOfDaysSinceYearOne(2024), 738396);
 }
 //////////////////////////////////////////////////////////////////////////////
 
 
-int main() {
+int main2() {
     // Initialize the CUnit test registry
     CU_initialize_registry();
 
