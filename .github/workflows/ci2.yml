@@ -18,9 +18,13 @@ jobs:
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-cunit
 
+    - name: List directory structure
+      run: |
+        ls -R /mingw64/include
+
     - name: Compile C code
       run: |
-        gcc -o cal.exe functions.c tests.c -I/mingw64/include -L/mingw64/lib -lcunit
+        gcc -o cal.exe functions.c tests.c -I/mingw64/include/CUnit -L/mingw64/lib -lcunit
 
     - name: Run tests
       run: |
