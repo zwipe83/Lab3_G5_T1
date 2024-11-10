@@ -5,8 +5,8 @@
 #include "functions.h"
 
 /// Prototypes
-static void printMonthNames(const char* months[], int startMonth, int endMonth, char option[]);
-static void printWeekdayNames(const char* weekdays[], char option[]);
+static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);
+static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
 static int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
