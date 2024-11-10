@@ -1,6 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "tests.h"
+#include "functions.h"
 #include <stdlib.h>
 
 // Test for leap days from 1 to 2004
