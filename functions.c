@@ -5,12 +5,12 @@
 #include "functions.h"
 
 /// Prototypes
-static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);
+/*static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);
 static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
 static int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
-static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);
+static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);*/
 
 /// <summary>
 /// Check if year is a leap year or not
