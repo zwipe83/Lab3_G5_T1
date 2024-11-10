@@ -4,6 +4,14 @@
 #include <string.h>
 #include "functions.h"
 
+/// Prototypes
+static void printMonthNames(const char* months[], int startMonth, int endMonth, char option[]);
+static void printWeekdayNames(const char* weekdays[], char option[]);
+static int getWeekNumber(int year, int month, int day);
+static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
+static int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
+static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);
+
 /// <summary>
 /// Check if year is a leap year or not
 /// </summary>
@@ -52,7 +60,7 @@ int numberOfDaysSinceYearOne(int year)
 /// Print year in the middle of the application
 /// </summary>
 /// <param name="year"></param>
-void printYear(int year, char option[])
+void printYear(int year, const char option[])
 {
 	int offset = 35;
 	if ((strcmp(option, "-w") == 0))
@@ -70,7 +78,7 @@ void printYear(int year, char option[])
 /// <param name="months"></param>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-void printMonthNames(const char* months[], int startMonth, int endMonth, char option[])
+static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[])
 {
 	int firstOffset = 6, secondOffset = 26;
 	if ((strcmp(option, "-w") == 0))
@@ -91,7 +99,7 @@ void printMonthNames(const char* months[], int startMonth, int endMonth, char op
 /// Print weekday names, "Su-Sa", with consistent spacings
 /// </summary>
 /// <param name="weekdays"></param>
-void printWeekdayNames(const char* weekdays[], char option[])
+static void printWeekdayNames(const char* weekdays[], const char option[])
 {
 	for (int j = 0; j < 3; j++) //TODO: Maybe make this dynamic, 3 is hardcoded
 	{
@@ -115,12 +123,14 @@ void printWeekdayNames(const char* weekdays[], char option[])
 /// <param name="month"></param>
 /// <param name="day"></param>
 /// <returns></returns>
-int getWeekNumber(int year, int month, int day) {
+static int getWeekNumber(int year, int month, int day) 
+{
 	// Array with the number of days in each month
 	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	// Check for leap year and adjust February days
-	if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+	if (getLeapYear != 0) 
+	{
 		daysInMonths[1] = 29;
 	}
 
@@ -130,13 +140,14 @@ int getWeekNumber(int year, int month, int day) {
 		dayOfYear += daysInMonths[i];
 	}
 
-	// Calculate the day of the week for January 1st of the given year
-	struct tm timeStruct = { 0 };
-	timeStruct.tm_year = year - 1900;
-	timeStruct.tm_mon = 0; // January
-	timeStruct.tm_mday = 1;
-	mktime(&timeStruct);
-	int dayOfWeekJan1 = timeStruct.tm_wday;
+	// Zeller's Congruence to calculate the day of the week for January 1st
+	int q = 1; // Day of the month
+	int m = 13; // January is treated as the 13th month of the previous year
+	int K = (year - 1) % 100; // Year of the century
+	int J = (year - 1) / 100; // Zero-based century
+
+	int dayOfWeekJan1 = (q + (13 * (m + 1)) / 5 + K + (K / 4) + (J / 4) - (2 * J)) % 7;
+	dayOfWeekJan1 = (dayOfWeekJan1 + 5) % 7 + 1; // Adjust to make Sunday = 0, Monday = 1, ..., Saturday = 6
 
 	// Calculate the week number
 	int weekNumber = (dayOfYear + dayOfWeekJan1 - 1) / 7 + 1;
@@ -149,6 +160,8 @@ int getWeekNumber(int year, int month, int day) {
 	return weekNumber;
 }
 
+	
+
 /// <summary>
 /// Print week numbers for each month
 /// </summary>
@@ -157,7 +170,7 @@ int getWeekNumber(int year, int month, int day) {
 /// <param name="month"></param>
 /// <param name="dayCount"></param>
 /// <param name="nextDay"></param>
-void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay)
+static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay)
 {
 	int y = year;
 	int m = startMonth + month + 1;
@@ -174,7 +187,7 @@ void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, i
 /// <param name="totalDays"></param>
 /// <param name="isLeapYear"></param>
 /// <returns></returns>
-int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear)
+static int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear)
 {
 	int* firstDayInMonths = (int*)malloc(sizeof(int) * (endMonth - startMonth));
 
@@ -218,7 +231,7 @@ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeap
 /// <param name="endMonth"></param>
 /// <param name="isLeapYear"></param>
 /// <returns></returns>
-int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
+static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
 {
 	int* dayCount = (int*)malloc(sizeof(int) * (endMonth - startMonth));
 

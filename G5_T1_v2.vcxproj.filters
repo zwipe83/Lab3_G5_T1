@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\G5_T1_v3\functions.c">
+    <ClCompile Include=".\functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G5_T1_v3\main.c">
+    <ClCompile Include=".\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G5_T1_v3\todos.c">
+    <ClCompile Include=".\todos.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\G5_T1_v3\functions.h">
+    <ClInclude Include=".\functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
