@@ -8,29 +8,42 @@
 const char* months[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 const char* weekdays[] = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 
-int main() {
+int main() 
+{
+	//printf("days 2024: %d\n", getNumberOfDaysSinceYearOne(2024));
+	//printf("days 1753: %d\n", getNumberOfDaysSinceYearOne(1753));
+	//printf("days 100: %d\n", getNumberOfDaysSinceYearOne(100));
+	
+	//Run assertions
+	runAssertions();
 
 	do
 	{
 		// Init variables
-		int year, isLeapYear, daysSinceYearOne, leapDaysSinceYearOne, totalDaysSinceYearOne;
+		int year, isLeapYear, daysSinceYearOne;
 		char option[10];
 		option[0] = '\0'; // Set option to empty string
 
 		// Ask for a specific year
-		printf("Enter a year (Option '-w' to display week numbers, less than 0 to exit): \n");
+		printf("Enter a year (Option '-w' to display week numbers, <= 0 to exit): \n");
 		int y = scanf("%d", &year); // Read only the year first
+
+		system("cls"); // Clear console screen
+
+		if (year <= 0)
+		{
+			exit(0); // Exit the program
+		}
+
+		if (year < 1753)
+		{
+			printf("Year must be greater than 1752\n");
+			continue;
+		}
 
 		// Check if there is an additional option
 		if (getchar() == ' ') { // Check if there is a space indicating more input
 			int o = scanf("%9s", option); // Read the option if available
-		}
-
-		system("cls"); // Clear console screen
-
-		if (year < 0)
-		{
-			exit(0); // Exit the program
 		}
 
 		// Print the parsed values
@@ -41,22 +54,16 @@ int main() {
 		isLeapYear = getLeapYear(year);
 
 		// Get number of days since year one.
-		daysSinceYearOne = numberOfDaysSinceYearOne(year);
-
-		// Get number of leap days since year one.
-		leapDaysSinceYearOne = getLeapDays(year);
-
-		// Add days since year one and leap days since year one.
-		totalDaysSinceYearOne = daysSinceYearOne + leapDaysSinceYearOne;
+		daysSinceYearOne = getNumberOfDaysSinceYearOne(year);
 
 		// Print the year.
 		printYear(year, option);
 
 		// Print calendar three months at a time.
-		printCalendar(totalDaysSinceYearOne, 0, 3, isLeapYear, months, weekdays, year, option); //Jan-Mar
-		printCalendar(totalDaysSinceYearOne, 3, 6, isLeapYear, months, weekdays, year, option); //Apr-Jun
-		printCalendar(totalDaysSinceYearOne, 6, 9, isLeapYear, months, weekdays, year, option); //Jul-Sep
-		printCalendar(totalDaysSinceYearOne, 9, 12, isLeapYear, months, weekdays, year, option); //Oct-Dec
+		printCalendar(0, 3, isLeapYear, months, weekdays, year, option); //Jan-Mar
+		printCalendar(3, 6, isLeapYear, months, weekdays, year, option); //Apr-Jun
+		printCalendar(6, 9, isLeapYear, months, weekdays, year, option); //Jul-Sep
+		printCalendar(9, 12, isLeapYear, months, weekdays, year, option); //Oct-Dec
 	} while (1); // Ask for another year.
 
 	return 0;

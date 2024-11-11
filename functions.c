@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
+#include <assert.h>
 #include "functions.h"
 
 /// Prototypes
-/*static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);
+static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);
 static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
-static int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear);
-static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);*/
+static int* getFirstDayInMonths(int startMonth, int endMonth, int year, int isLeapYear);
+static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year, int isLeapYear);
 
 /// <summary>
 /// Check if year is a leap year or not
@@ -28,7 +28,7 @@ int getLeapYear(int year)
 /// </summary>
 /// <param name="year"></param>
 /// <returns></returns>
-int getLeapDays(int year)
+int getLeapDays(int year) //OBSOLETE
 {
 	int leapDays = 0;
 
@@ -48,11 +48,20 @@ int getLeapDays(int year)
 /// </summary>
 /// <param name="year"></param>
 /// <returns></returns>
-int numberOfDaysSinceYearOne(int year)
+int getNumberOfDaysSinceYearOne(int year)
 {
-	int days = 0;
-	days = ((year - 1) * 365) + 1;
-
+	int days = 1; 
+	
+	for (int i = 1; i < year; i++) 
+	{ 
+		if (getLeapYear(i)) 
+		{ 
+			days += 366; //Leap year
+		} else 
+		{ 
+			days += 365; //Non-leap year
+		} 
+	}
 	return days;
 }
 
@@ -60,6 +69,7 @@ int numberOfDaysSinceYearOne(int year)
 /// Print year in the middle of the application
 /// </summary>
 /// <param name="year"></param>
+/// <param name="option"></param>
 void printYear(int year, const char option[])
 {
 	int offset = 35;
@@ -78,7 +88,8 @@ void printYear(int year, const char option[])
 /// <param name="months"></param>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-/*static*/ void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[])
+/// <param name="option"></param>
+static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[])
 {
 	int firstOffset = 6, secondOffset = 26;
 	if ((strcmp(option, "-w") == 0))
@@ -99,7 +110,8 @@ void printYear(int year, const char option[])
 /// Print weekday names, "Su-Sa", with consistent spacings
 /// </summary>
 /// <param name="weekdays"></param>
-/*static*/ void printWeekdayNames(const char* weekdays[], const char option[])
+/// <param name="option"></param>
+static void printWeekdayNames(const char* weekdays[], const char option[])
 {
 	for (int j = 0; j < 3; j++) //TODO: Maybe make this dynamic, 3 is hardcoded
 	{
@@ -122,8 +134,8 @@ void printYear(int year, const char option[])
 /// <param name="year"></param>
 /// <param name="month"></param>
 /// <param name="day"></param>
-/// <returns></returns>
-/*static*/ int getWeekNumber(int year, int month, int day)
+/// <returns>Week number 1-52</returns>
+static int getWeekNumber(int year, int month, int day)
 {
 	// Array with the number of days in each month
 	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -160,8 +172,6 @@ void printYear(int year, const char option[])
 	return weekNumber;
 }
 
-	
-
 /// <summary>
 /// Print week numbers for each month
 /// </summary>
@@ -170,7 +180,7 @@ void printYear(int year, const char option[])
 /// <param name="month"></param>
 /// <param name="dayCount"></param>
 /// <param name="nextDay"></param>
-/*static*/ void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay)
+static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay)
 {
 	int y = year;
 	int m = startMonth + month + 1;
@@ -184,17 +194,18 @@ void printYear(int year, const char option[])
 /// </summary>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-/// <param name="totalDays"></param>
+/// <param name="year"></param>
 /// <param name="isLeapYear"></param>
 /// <returns></returns>
-/*static*/ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeapYear)
+static int* getFirstDayInMonths(int startMonth, int endMonth, int year, int isLeapYear)
 {
-	int* firstDayInMonths = (int*)malloc(sizeof(int) * (endMonth - startMonth));
+	int totalDaysSinceYearOne = getNumberOfDaysSinceYearOne(year);
+	int* firstDayInMonths = (int*)malloc(sizeof(int) * ((endMonth + 1) - startMonth));
 
 	if (firstDayInMonths)
 	{
 		// Initialize the array
-		for (int i = 0; i < (endMonth - startMonth); i++) {
+		for (int i = 0; i <= (endMonth - startMonth); i++) {
 			firstDayInMonths[i] = 0;
 		}
 
@@ -208,12 +219,12 @@ void printYear(int year, const char option[])
 		int totalOffset = 0;
 		int ticks = 0;
 
-		for (int i = 0; i < endMonth; i++)
+		for (int i = 0; i <= endMonth; i++)
 		{
 			int offset = daysInMonths[i];
 			if (i >= startMonth)
 			{
-				firstDayInMonths[ticks] = (totalDays + totalOffset) % 7;
+				firstDayInMonths[ticks] = (totalDaysSinceYearOne + totalOffset) % 7;
 				ticks++;
 			}
 			totalOffset += offset;
@@ -229,16 +240,17 @@ void printYear(int year, const char option[])
 /// </summary>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
+/// <param name="year"></param>
 /// <param name="isLeapYear"></param>
 /// <returns></returns>
-/*static*/ int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear)
+static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year, int isLeapYear)
 {
-	int* dayCount = (int*)malloc(sizeof(int) * (endMonth - startMonth));
+	int* dayCount = (int*)malloc(sizeof(int) * ((endMonth+1) - startMonth));
 
 	if (dayCount)
 	{
 		// Initialize the array
-		for (int i = 0; i < (endMonth - startMonth); i++) {
+		for (int i = 0; i <= (endMonth - startMonth); i++) {
 			dayCount[i] = 0;
 		}
 
@@ -250,7 +262,7 @@ void printYear(int year, const char option[])
 		}
 
 		int ticks = 0;
-		for (int i = startMonth; i < endMonth; i++)
+		for (int i = startMonth; i <= endMonth; i++)
 		{
 			int days = daysInMonths[i];
 			dayCount[ticks] = days;
@@ -264,18 +276,19 @@ void printYear(int year, const char option[])
 /// <summary>
 /// Print calendar for a specific year, including leap day when needed.
 /// </summary>
-/// <param name="totalDaysSinceYearOne"></param>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
 /// <param name="isLeapYear"></param>
 /// <param name="months"></param>
 /// <param name="weekdays"></param>
-void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, const char* months[], const char* weekdays[], int year, char option[])
+/// <param name="year"></param>
+/// <param name="option"></param>
+void printCalendar(int startMonth, int endMonth, int isLeapYear, const char* months[], const char* weekdays[], int year, char option[])
 {
 	printMonthNames(months, startMonth, endMonth, option);
 	printWeekdayNames(weekdays, option);
-	int* firstDayInMonths = getFirstDayInMonths(startMonth, endMonth, totalDaysSinceYearOne, isLeapYear); //Basically get how many days to skip before starting to print the first of the month
-	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(startMonth, endMonth, isLeapYear);
+	int* firstDayInMonths = getFirstDayInMonths(startMonth, endMonth, year, isLeapYear); //Basically get how many days to skip before starting to print the first of the month
+	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(startMonth, endMonth, year, isLeapYear);
 
 	int dayCount[3] = { 0,0,0 }; //Keep track of how many days have been printed.
 
@@ -321,5 +334,72 @@ void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int 
 	}
 
 	free(firstDayInMonths);
+	free(numberOfDaysPerMonth);
+}
+
+/// <summary>
+/// Run all assertions
+/// </summary>
+/// <returns></returns>
+void runAssertions()
+{
+	// Test getLeapYear
+	assert(getLeapYear(100) == 0);
+	assert(getLeapYear(2000) == 1);
+	assert(getLeapYear(2001) == 0);
+	assert(getLeapYear(2004) == 1);
+	assert(getLeapYear(2100) == 0);
+	assert(getLeapYear(2400) == 1);
+
+	// Test numberOfDaysSinceYearOne
+	assert(getNumberOfDaysSinceYearOne(1) == 1);
+	assert(getNumberOfDaysSinceYearOne(100) == 36160);
+	assert(getNumberOfDaysSinceYearOne(1753) == 639906);
+	assert(getNumberOfDaysSinceYearOne(2024) == 738886);
+
+	// Test getWeekNumber
+	assert(getWeekNumber(2024, 1, 1) == 1);
+	assert(getWeekNumber(2024, 1, 7) == 2);
+	assert(getWeekNumber(2024, 2, 1) == 5);
+	assert(getWeekNumber(2024, 12, 28) == 52);
+
+	// Test getFirstDayInMonths
+	int* firstDayInMonths = getFirstDayInMonths(0, 2, 2024, 1); //Jan-Mar 2024
+	assert(firstDayInMonths[0] == 1);
+	assert(firstDayInMonths[1] == 4);
+	assert(firstDayInMonths[2] == 5);
+	free(firstDayInMonths);
+
+	firstDayInMonths = getFirstDayInMonths(0, 2, 1753, 0); //Jan-Mar 1753
+	assert(firstDayInMonths[0] == 1);
+	assert(firstDayInMonths[1] == 4);
+	assert(firstDayInMonths[2] == 4);
+	free(firstDayInMonths);
+
+	// Test getNumberOfDaysPerMonth
+	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2024, 1); //Jan-Mar Leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 29);
+	assert(numberOfDaysPerMonth[2] == 31);
+	free(numberOfDaysPerMonth);
+
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2023, 0); //Jan-Mar Non-leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 28);
+	assert(numberOfDaysPerMonth[2] == 31);
+	free(numberOfDaysPerMonth);
+
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2024, 1); //Jan-Dec Leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 29);
+	assert(numberOfDaysPerMonth[2] == 31);
+	assert(numberOfDaysPerMonth[11] == 31);
+	free(numberOfDaysPerMonth);
+
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2023, 0); //Jan-Dec Non-leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 28);
+	assert(numberOfDaysPerMonth[2] == 31);
+	assert(numberOfDaysPerMonth[11] == 31);
 	free(numberOfDaysPerMonth);
 }
