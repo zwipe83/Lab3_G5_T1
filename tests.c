@@ -5,90 +5,90 @@
 // Description: Test file for functions related to calendar operations.
 //////////////////////////////////////////////////////////////////////////
 
+#include "tests.h"
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "functions.h"
 #include <stdlib.h>
-#include "tests.h"
 
 // Test for leap days from 1 to 2004
 void test_getLeapDays_2004() {
-    CU_ASSERT(getLeapDays(2004) == 485); // Leap days from 1 to 2004
+    CU_ASSERT(getLeapDays(2004) == 485);  // Leap days from 1 to 2004
 }
 
 // Test for leap days from 1 to 2000
 void test_getLeapDays_2000() {
-    CU_ASSERT(getLeapDays(2000) == 484); // Leap days from 1 to 1999
+    CU_ASSERT(getLeapDays(2000) == 484);  // Leap days from 1 to 1999
 }
 
 // Test for leap days from 1 to 1990
 void test_getLeapDays_1990() {
-    CU_ASSERT(getLeapDays(1990) == 482); // Leap days from 1 to 1989
+    CU_ASSERT(getLeapDays(1990) == 482);  // Leap days from 1 to 1989
 }
 
 // Test for leap days from 1 to 1980
 void test_getLeapDays_1980() {
-    CU_ASSERT(getLeapDays(1980) == 479); // Leap days from 1 to 1979
+    CU_ASSERT(getLeapDays(1980) == 479);  // Leap days from 1 to 1979
 }
 
 // Test for leap days from 1 to 1970
 void test_getLeapDays_1970() {
-    CU_ASSERT(getLeapDays(1970) == 477); // Leap days from 1 to 1969
+    CU_ASSERT(getLeapDays(1970) == 477);  // Leap days from 1 to 1969
 }
 
 // Test for leap days from 1 to 1960
 void test_getLeapDays_1960() {
-    CU_ASSERT(getLeapDays(1960) == 474); // Leap days from 1 to 1959
+    CU_ASSERT(getLeapDays(1960) == 474);  // Leap days from 1 to 1959
 }
 
 // Test for leap days from 1 to 2500
 void test_getLeapDays_2500() {
-    CU_ASSERT(getLeapDays(2500) == 606); // Leap days from 1 to 2499
+    CU_ASSERT(getLeapDays(2500) == 606);  // Leap days from 1 to 2499
 }
 
 // Test for leap days from 1 to 2200
 void test_getLeapDays_2200() {
-    CU_ASSERT(getLeapDays(2200) == 533); // Leap days from 1 to 2199
+    CU_ASSERT(getLeapDays(2200) == 533);  // Leap days from 1 to 2199
 }
 
 // Test for leap days from 1 to 1800
 void test_getLeapDays_1800() {
-    CU_ASSERT(getLeapDays(1800) == 436); // Leap days from 1 to 1799
+    CU_ASSERT(getLeapDays(1800) == 436);  // Leap days from 1 to 1799
 }
 
 // Test for leap days from 1 to 3000
 void test_getLeapDays_3000() {
-    CU_ASSERT(getLeapDays(3000) == 727); // Leap days from 1 to 2999
+    CU_ASSERT(getLeapDays(3000) == 727);  // Leap days from 1 to 2999
 }
 
 // Test for leap days from 1 to 1500
 void test_getLeapDays_1500() {
-    CU_ASSERT(getLeapDays(1500) == 363); // Leap days from 1 to 1499
+    CU_ASSERT(getLeapDays(1500) == 363);  // Leap days from 1 to 1499
 }
 
 // Test for leap days from 1 to 2100
 void test_getLeapDays_2100() {
-    CU_ASSERT(getLeapDays(2100) == 509); // Leap days from 1 to 2099
+    CU_ASSERT(getLeapDays(2100) == 509);  // Leap days from 1 to 2099
 }
 
 // Test for leap days from 1 to 2400
 void test_getLeapDays_2400() {
-    CU_ASSERT(getLeapDays(2400) == 581); // Leap days from 1 to 2399
+    CU_ASSERT(getLeapDays(2400) == 581);  // Leap days from 1 to 2399
 }
 
 // Test for leap days from 1 to 1300
 void test_getLeapDays_1300() {
-    CU_ASSERT(getLeapDays(1300) == 315); // Leap days from 1 to 1299
+    CU_ASSERT(getLeapDays(1300) == 315);  // Leap days from 1 to 1299
 }
 
 // Test for leap days from 1 to 1700
 void test_getLeapDays_1700() {
-    CU_ASSERT(getLeapDays(1700) == 412); // Leap days from 1 to 1699
+    CU_ASSERT(getLeapDays(1700) == 412);  // Leap days from 1 to 1699
 }
 
 // Test for leap days from 1 to 1900
 void test_getLeapDays_1900() {
-    CU_ASSERT(getLeapDays(1900) == 460); // Leap days from 1 to 1899
+    CU_ASSERT(getLeapDays(1900) == 460);  // Leap days from 1 to 1899
 }
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -149,17 +149,17 @@ void test_getFirstDayInMonths(void) {
     // Test case 1: Non-leap year, January to March
     result = getFirstDayInMonths(0, 3, 0, 0);
     CU_ASSERT_PTR_NOT_NULL(result);
-    CU_ASSERT_EQUAL(result[0], 0); // January 1st is Sunday
-    CU_ASSERT_EQUAL(result[1], 3); // February 1st is Wednesday
-    CU_ASSERT_EQUAL(result[2], 3); // March 1st is Wednesday
+    CU_ASSERT_EQUAL(result[0], 0);  // January 1st is Sunday
+    CU_ASSERT_EQUAL(result[1], 3);  // February 1st is Wednesday
+    CU_ASSERT_EQUAL(result[2], 3);  // March 1st is Wednesday
     free(result);
 
     // Test case 2: Leap year, January to March
     result = getFirstDayInMonths(0, 3, 0, 1);
     CU_ASSERT_PTR_NOT_NULL(result);
-    CU_ASSERT_EQUAL(result[0], 0); // January 1st is Sunday
-    CU_ASSERT_EQUAL(result[1], 3); // February 1st is Wednesday
-    CU_ASSERT_EQUAL(result[2], 4); // March 1st is Thursday
+    CU_ASSERT_EQUAL(result[0], 0);  // January 1st is Sunday
+    CU_ASSERT_EQUAL(result[1], 3);  // February 1st is Wednesday
+    CU_ASSERT_EQUAL(result[2], 4);  // March 1st is Thursday
     free(result);
 
     // Add more test cases as needed
@@ -282,7 +282,7 @@ void test_getWeekNumber() {
     CU_ASSERT_EQUAL(getWeekNumber(2024, 3, 1), 9);
 
     // Test case 5: Invalid date (e.g., April 31, 2023)
-    CU_ASSERT_EQUAL(getWeekNumber(2023, 4, 31), -1); // Assuming the function returns -1 for invalid dates
+    CU_ASSERT_EQUAL(getWeekNumber(2023, 4, 31), -1);
 }
 //////////////////////////////////////////////////////////////////////////////
 

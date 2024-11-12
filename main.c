@@ -5,9 +5,9 @@
 // Description: Main file for calendar application.
 //////////////////////////////////////////////////////////////////////////
 
+#include "functions.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "functions.h"
 
 /// <summary>
 /// Month and weekday names
@@ -27,7 +27,7 @@ int main()
 	do
 	{
 		// Init variables
-		int year, isLeapYear;
+		int year;
 		char option[10];
 		option[0] = '\0';  // Set option to empty string
 

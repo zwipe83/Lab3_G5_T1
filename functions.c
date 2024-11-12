@@ -5,11 +5,11 @@
 // Description: C file for functions related to calendar operations.
 //////////////////////////////////////////////////////////////////////////
 
+#include "functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "functions.h"
 
 // Prototypes
 static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[]);

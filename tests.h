@@ -1,5 +1,5 @@
-#ifndef TESTS_H
-#define TESTS_H
+#ifndef TESTS_H_
+#define TESTS_H_
 
 int getLeapYear(int year);
 int getLeapDays(int year);
@@ -13,4 +13,4 @@ int* getFirstDayInMonths(int startMonth, int endMonth, int totalDays, int isLeap
 int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int isLeapYear);
 void printCalendar(int totalDaysSinceYearOne, int startMonth, int endMonth, int isLeapYear, const char* months[], const char* weekdays[], int year, char option[]);
 
-#endif // TESTS_H
+#endif // TESTS_H_
