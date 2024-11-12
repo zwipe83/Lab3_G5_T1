@@ -20,14 +20,14 @@ int main()
 	do
 	{
 		// Init variables
-		int year, isLeapYear, daysSinceYearOne;
+		int year, isLeapYear;
 		char option[10];
 		option[0] = '\0'; // Set option to empty string
 
 		// Ask for a specific year
 		printf("Enter a year (Option '-w' to display week numbers, <= 0 to exit): \n");
-		int y = scanf("%d", &year); // Read only the year first
-
+		scanf_s("%d", &year); // Read only the year first
+		
 		system("cls"); // Clear console screen
 
 		if (year <= 0)
@@ -37,7 +37,7 @@ int main()
 
 		if (year < 1753)
 		{
-			printf("Year must be greater than 1752\n");
+			printf("Year must be greater than 1752\n"); //Aplication doesn't handle switch between Julian an Gregorian calendar
 			continue;
 		}
 
@@ -52,9 +52,6 @@ int main()
 
 		// Is the entered year a leap year?
 		isLeapYear = getLeapYear(year);
-
-		// Get number of days since year one.
-		daysSinceYearOne = getNumberOfDaysSinceYearOne(year);
 
 		// Print the year.
 		printYear(year, option);

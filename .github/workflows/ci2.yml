@@ -1,48 +1,21 @@
-name: C Build Test Windows
+name: Lint Code Base
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  checkout:
-    runs-on: self-hosted
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-  install:
-    runs-on: self-hosted
-    needs: checkout
-    steps:
-    - name: Add GCC to PATH
-      run: |
-        echo "C:\msys64\mingw64\bin" >> $GITHUB_PATH
-        echo "C:\msys64\mingw64\bin" >> $env:GITHUB_PATH
-        
-    - name: Verify GCC installation
-      run: gcc --version
-  
-  code-check:
-    runs-on: self-hosted
-    needs: install    
-    steps:
-    - name: Run Code Quality Check
-      run: |
-        echo "Running code quality check..."
-        cppcheck --enable=all --inconclusive --force --suppress=unusedFunction --checkers-report="C:/evc/checkers_report.txt" -I"C:\msys64\mingw64\include" functions.c functions.h main.c -i tests.c
-      continue-on-error: true  # Allow the build to continue even if cppcheck finds issues
-      
-      # cppcheck --check-config --enable=all --inconclusive -I/usr/include -i tests.c .  # Ignore tests.c
-  build:
-    runs-on: self-hosted
-    needs: code-check  
-    steps:
-    - name: Compile
-      run: gcc -o cal.exe functions.c tests.c -I"C:/msys64/mingw64/include" -lcunit
-
-  test:
-    runs-on: self-hosted
-    needs: build    
-    steps:
-    - name: Run tests
-      run: ./cal.exe
+      - name: Run Super Linter
+        uses: github/super-linter@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
