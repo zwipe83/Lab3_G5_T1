@@ -7,4 +7,4 @@
 //FIXED: Maybe make numberOfDaysSinceYearOne and getLeapDays in to one function
 //FIXED: Handle switch from Julian to Gregorian calendar. Not implemented, no time.
 //FIXED: Update comments
-//TODO: Remove isLeapYear as parameter to functions, run function isLeapYear instead
+//FIXED: Remove isLeapYear as parameter to functions, run function getLeapYear instead

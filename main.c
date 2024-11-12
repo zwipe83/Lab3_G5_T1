@@ -50,17 +50,14 @@ int main()
 		printf("Year: %d\n", year);
 		printf("Option: %s\n", option);
 
-		// Is the entered year a leap year?
-		isLeapYear = getLeapYear(year);
-
 		// Print the year.
 		printYear(year, option);
 
 		// Print calendar three months at a time.
-		printCalendar(0, 3, isLeapYear, months, weekdays, year, option); //Jan-Mar
-		printCalendar(3, 6, isLeapYear, months, weekdays, year, option); //Apr-Jun
-		printCalendar(6, 9, isLeapYear, months, weekdays, year, option); //Jul-Sep
-		printCalendar(9, 12, isLeapYear, months, weekdays, year, option); //Oct-Dec
+		printCalendar(0, 3, months, weekdays, year, option); //Jan-Mar
+		printCalendar(3, 6, months, weekdays, year, option); //Apr-Jun
+		printCalendar(6, 9, months, weekdays, year, option); //Jul-Sep
+		printCalendar(9, 12, months, weekdays, year, option); //Oct-Dec
 	} while (1); // Ask for another year.
 
 	return 0;
