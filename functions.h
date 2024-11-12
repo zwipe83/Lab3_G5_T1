@@ -1,11 +1,11 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef FUNCTIONS_H_
+#define FUNCTIONS_H_
 
 int getLeapYear(int year);
 int getNumberOfDaysSinceYearOne(int year);
 int getLeapDays(int year);
 void printYear(int year, const char option[]);
-void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, char option[]);
+void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, const char option[]);
 void runAssertions(void);
 
-#endif // FUNCTIONS_H
+#endif // FUNCTIONS_H_

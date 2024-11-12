@@ -28,7 +28,7 @@ int getLeapYear(int year)
 /// </summary>
 /// <param name="year"></param>
 /// <returns></returns>
-int getLeapDays(int year) //TODO: OBSOLETE, remove?
+int getLeapDays(int year)  // TODO: OBSOLETE, remove?
 {
 	int leapDays = 0;
 
@@ -50,17 +50,18 @@ int getLeapDays(int year) //TODO: OBSOLETE, remove?
 /// <returns></returns>
 int getNumberOfDaysSinceYearOne(int year)
 {
-	int days = 1; 
-	
-	for (int i = 1; i < year; i++) 
-	{ 
-		if (getLeapYear(i)) 
-		{ 
+	int days = 1;
+
+	for (int i = 1; i < year; i++)
+	{
+		if (getLeapYear(i))
+		{
 			days += 366;  // Leap year
-		} else 
-		{ 
+		}
+		else
+		{
 			days += 365;  // Non-leap year
-		} 
+		}
 	}
 	return days;
 }
@@ -73,7 +74,7 @@ int getNumberOfDaysSinceYearOne(int year)
 void printYear(int year, const char option[])
 {
 	int offset = 35;
-    if ((strcmp (option, "-w") == 0)) // More space needed for week numbers
+    if ((strcmp (option, "-w") == 0))  // More space needed for week numbers
 	{
 		offset = 38;
 	}
@@ -96,7 +97,6 @@ static void printMonthNames(const char* months[], int startMonth, int endMonth, 
 	{
 		firstOffset = 9;
 		secondOffset = 29;
-
 	}
 	printf("%*s", firstOffset, "");  // Offset from left of application
 	for (int i = startMonth; i < endMonth; i++)
@@ -141,7 +141,7 @@ static int getWeekNumber(int year, int month, int day)
 	int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	// Check for leap year and adjust February days
-	if (getLeapYear != 0) 
+	if (getLeapYear != 0)
 	{
 		daysInMonths[1] = 29;
 	}
@@ -200,7 +200,7 @@ static void printWeekNumber(int year, int startMonth, int month, const	int* dayC
 static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 {
 	int totalDaysSinceYearOne = getNumberOfDaysSinceYearOne(year);
-	int* firstDayInMonths = (int*)malloc(sizeof(int) * ((endMonth + 1) - startMonth));
+	int* firstDayInMonths = malloc(sizeof(int) * ((endMonth + 1) - startMonth));
 
 	if (firstDayInMonths)
 	{
@@ -245,7 +245,7 @@ static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 /// <returns></returns>
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 {
-	int* dayCount = (int*)malloc(sizeof(int) * ((endMonth+1) - startMonth));
+	int* dayCount = malloc(sizeof(int) * ((endMonth+1) - startMonth));
 
 	if (dayCount)
 	{
@@ -283,14 +283,14 @@ static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 /// <param name="weekdays"></param>
 /// <param name="year"></param>
 /// <param name="option"></param>
-void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, char option[])
+void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, const char option[])
 {
 	printMonthNames(months, startMonth, endMonth, option);
 	printWeekdayNames(weekdays, option);
 	int* firstDayInMonths = getFirstDayInMonths(startMonth, endMonth, year);  // Basically get how many days to skip before starting to print the first of the month
 	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(startMonth, endMonth, year);
 
-	int dayCount[3] = { 0,0,0 };  // Keep track of how many days have been printed.
+	int dayCount[3] = { 0, 0, 0 };  // Keep track of how many days have been printed.
 
 	for (int row = 0; row < 7; row++)
 	{
