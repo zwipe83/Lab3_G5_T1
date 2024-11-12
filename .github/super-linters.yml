@@ -1,0 +1,7 @@
+linters:
+  cpp:
+    enabled: true
+    # Disable specific rules
+    disable:
+      - whitespace/braces
+      - whitespace/tab
