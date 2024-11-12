@@ -3,3 +3,5 @@ UseTab: Always         # Use tabs for indentation
 ColumnLimit: 100
 AllowShortBlocksOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
+BraceWrapping:
+  AfterControlStatement: false
