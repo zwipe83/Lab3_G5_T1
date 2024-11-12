@@ -344,78 +344,78 @@ void printCalendar(int startMonth, int endMonth, const char* months[], const cha
 void runAssertions(void)
 {
 	// Test getLeapYear
-	assert (getLeapYear(100) == 0);
-	assert (getLeapYear(2000) == 1);
-	assert (getLeapYear(2001) == 0);
-	assert (getLeapYear(2004) == 1);
-	assert (getLeapYear(2100) == 0);
-	assert (getLeapYear(2400) == 1);
+	assert(getLeapYear(100) == 0);
+	assert(getLeapYear(2000) == 1);
+	assert(getLeapYear(2001) == 0);
+	assert(getLeapYear(2004) == 1);
+	assert(getLeapYear(2100) == 0);
+	assert(getLeapYear(2400) == 1);
 
 	// Test numberOfDaysSinceYearOne
-	assert (getNumberOfDaysSinceYearOne(1) == 1);
-	assert (getNumberOfDaysSinceYearOne(100) == 36160);
-	assert (getNumberOfDaysSinceYearOne(1753) == 639906);
-	assert (getNumberOfDaysSinceYearOne(2024) == 738886);
+	assert(getNumberOfDaysSinceYearOne(1) == 1);
+	assert(getNumberOfDaysSinceYearOne(100) == 36160);
+	assert(getNumberOfDaysSinceYearOne(1753) == 639906);
+	assert(getNumberOfDaysSinceYearOne(2024) == 738886);
 
 	// Test getWeekNumber
-	assert (getWeekNumber(2024, 1, 1) == 1);
-	assert (getWeekNumber(2024, 1, 7) == 2);
-	assert (getWeekNumber(2024, 2, 1) == 5);
-	assert (getWeekNumber(2024, 12, 28) == 52);
+	assert(getWeekNumber(2024, 1, 1) == 1);
+	assert(getWeekNumber(2024, 1, 7) == 2);
+	assert(getWeekNumber(2024, 2, 1) == 5);
+	assert(getWeekNumber(2024, 12, 28) == 52);
 
 	// Test getFirstDayInMonths
-	int* firstDayInMonths = getFirstDayInMonths (0, 2, 2024); //Jan-Mar 2024
-	assert (firstDayInMonths[0] == 1);
-	assert (firstDayInMonths[1] == 4);
-	assert (firstDayInMonths[2] == 5);
-	free (firstDayInMonths);
+	int* firstDayInMonths = getFirstDayInMonths(0, 2, 2024); //Jan-Mar 2024
+	assert(firstDayInMonths[0] == 1);
+	assert(firstDayInMonths[1] == 4);
+	assert(firstDayInMonths[2] == 5);
+	free(firstDayInMonths);
 
-	firstDayInMonths = getFirstDayInMonths (0, 2, 1753); //Jan-Mar 1753
-	assert (firstDayInMonths[0] == 1);
-	assert (firstDayInMonths[1] == 4);
-	assert (firstDayInMonths[2] == 4);
-	free (firstDayInMonths);
+	firstDayInMonths = getFirstDayInMonths(0, 2, 1753); //Jan-Mar 1753
+	assert(firstDayInMonths[0] == 1);
+	assert(firstDayInMonths[1] == 4);
+	assert(firstDayInMonths[2] == 4);
+	free(firstDayInMonths);
 
 	// Test getNumberOfDaysPerMonth
-	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 2, 2024); //Jan-Mar Leap year
-	assert (numberOfDaysPerMonth[0] == 31);
-	assert (numberOfDaysPerMonth[1] == 29);
-	assert (numberOfDaysPerMonth[2] == 31);
-	free (numberOfDaysPerMonth);
+	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2024); //Jan-Mar Leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 29);
+	assert(numberOfDaysPerMonth[2] == 31);
+	free(numberOfDaysPerMonth);
 
-	numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 2, 2023); //Jan-Mar Non-leap year
-	assert (numberOfDaysPerMonth[0] == 31);
-	assert (numberOfDaysPerMonth[1] == 28);
-	assert (numberOfDaysPerMonth[2] == 31);
-	free (numberOfDaysPerMonth);
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2023); //Jan-Mar Non-leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 28);
+	assert(numberOfDaysPerMonth[2] == 31);
+	free(numberOfDaysPerMonth);
 
-	numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 11, 2024); //Jan-Dec Leap year
-	assert (numberOfDaysPerMonth[0] == 31);
-    assert (numberOfDaysPerMonth[1] == 29);
-    assert (numberOfDaysPerMonth[2] == 31);
-    assert (numberOfDaysPerMonth[3] == 30);
-    assert (numberOfDaysPerMonth[4] == 31);
-    assert (numberOfDaysPerMonth[5] == 30);
-    assert (numberOfDaysPerMonth[6] == 31);
-    assert (numberOfDaysPerMonth[7] == 31);
-    assert (numberOfDaysPerMonth[8] == 3);
-    assert (numberOfDaysPerMonth[9] == 31);
-    assert (numberOfDaysPerMonth[10] == 30);
-	assert (numberOfDaysPerMonth[11] == 31);
-	free (numberOfDaysPerMonth);
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2024); //Jan-Dec Leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+    assert(numberOfDaysPerMonth[1] == 29);
+    assert(numberOfDaysPerMonth[2] == 31);
+    assert(numberOfDaysPerMonth[3] == 30);
+    assert(numberOfDaysPerMonth[4] == 31);
+    assert(numberOfDaysPerMonth[5] == 30);
+    assert(numberOfDaysPerMonth[6] == 31);
+    assert(numberOfDaysPerMonth[7] == 31);
+    assert(numberOfDaysPerMonth[8] == 3);
+    assert(numberOfDaysPerMonth[9] == 31);
+    assert(numberOfDaysPerMonth[10] == 30);
+	assert(numberOfDaysPerMonth[11] == 31);
+	free(numberOfDaysPerMonth);
 
-	numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 11, 2023); //Jan-Dec Non-leap year
-	assert (numberOfDaysPerMonth[0] == 31);
-	assert (numberOfDaysPerMonth[1] == 28);
-    assert (numberOfDaysPerMonth[2] == 31);
-    assert (numberOfDaysPerMonth[3] == 30);
-    assert (numberOfDaysPerMonth[4] == 31);
-    assert (numberOfDaysPerMonth[5] == 30);
-    assert (numberOfDaysPerMonth[6] == 31);
-    assert (numberOfDaysPerMonth[7] == 31);
-    assert (numberOfDaysPerMonth[8] == 3);
-    assert (numberOfDaysPerMonth[9] == 31);
-    assert (numberOfDaysPerMonth[10] == 30);
-	assert (numberOfDaysPerMonth[11] == 31);
-	free (numberOfDaysPerMonth);
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2023); //Jan-Dec Non-leap year
+	assert(numberOfDaysPerMonth[0] == 31);
+	assert(numberOfDaysPerMonth[1] == 28);
+    assert(numberOfDaysPerMonth[2] == 31);
+    assert(numberOfDaysPerMonth[3] == 30);
+    assert(numberOfDaysPerMonth[4] == 31);
+    assert(numberOfDaysPerMonth[5] == 30);
+    assert(numberOfDaysPerMonth[6] == 31);
+    assert(numberOfDaysPerMonth[7] == 31);
+    assert(numberOfDaysPerMonth[8] == 3);
+    assert(numberOfDaysPerMonth[9] == 31);
+    assert(numberOfDaysPerMonth[10] == 30);
+	assert(numberOfDaysPerMonth[11] == 31);
+	free(numberOfDaysPerMonth);
 }
