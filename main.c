@@ -1,8 +1,11 @@
 //////////////////////////////////////////////////////////////////////////
-// Copyright (C) 2024 Samuel Jeffman
-// All rights reserved.
-//
+// <summary>
+// Grade 5 Task, option 3
+// Filename: main.c
+// Created on: 2024-10-20 00:00:00
+// Author: Samuel Jeffman
 // Description: Main file for calendar application.
+// </summary>
 //////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>

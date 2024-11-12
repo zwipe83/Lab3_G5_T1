@@ -1,7 +1,7 @@
 BasedOnStyle: GNU  # or any other base style
 IndentWidth: 4
 UseTab: Always         # Use tabs for indentation
-ColumnLimit: 100
+ColumnLimit: 175
 AllowShortBlocksOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
 BraceWrapping:

@@ -1,8 +1,11 @@
 //////////////////////////////////////////////////////////////////////////
-// Copyright (C) 2024 Samuel Jeffman
-// All rights reserved.
-//
-// Description: C file for functions related to calendar operations.
+// <summary>
+// Grade 5 Task, option 3
+// Filename: functions.c
+// Created on: 2024-10-20 00:00:00
+// Author: Samuel Jeffman
+// Description: Code file for functions related to calendar operations.
+// </summary>
 //////////////////////////////////////////////////////////////////////////
 
 #include "functions.h"
@@ -17,7 +20,7 @@ static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
 static void initArray(int count, int *ary);
-static int *getFirstDayInMonths(int startMonth, int endMonth, int year);
+static int* getFirstDayInMonths(int startMonth, int endMonth, int year);
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year);
 
 /// <summary>
@@ -98,7 +101,7 @@ void printYear(int year, const char option[])
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
 /// <param name="option"></param>
-static void printMonthNames(const char* months[], int startMonth, int endMonth, const char option[])
+static void printMonthNames (const char* months[], int startMonth, int endMonth, const char option[])
 {
 	int firstOffset = 6, secondOffset = 26;
 	if ((strcmp(option, "-w") == 0))
@@ -119,7 +122,7 @@ static void printMonthNames(const char* months[], int startMonth, int endMonth, 
 /// </summary>
 /// <param name="weekdays"></param>
 /// <param name="option"></param>
-static void printWeekdayNames(const char* weekdays[], const char option[])
+static void printWeekdayNames (const char* weekdays[], const char option[])
 {
 	for (int j = 0; j < 3; j++)  // TODO: Maybe make this dynamic, 3 is hardcoded
 	{
@@ -160,14 +163,14 @@ static int getWeekNumber(int year, int month, int day)
 		dayOfYear += daysInMonths[i];
 	}
 
-	// Zeller's Congruence to calculate the day of the week for January 1st
-	int q = 1;  // Day of the month
-	int m = 13;  // January is treated as the 13th month of the previous year
-	int K = (year - 1) % 100;  // Year of the century
-	int J = (year - 1) / 100;  // Zero-based century
+	// Zeller's Congruence to calculate the day of the week
+	int dayOfMonth = 1;
+	int m = 13;
+	int yearOfCentury = (year - 1) % 100;
+	int zeroBasedCentury = (year - 1) / 100;
 
-	int dayOfWeekJan1 = (q + (13 * (m + 1)) / 5 + K + (K / 4) + (J / 4) - (2 * J)) % 7;
-	dayOfWeekJan1 = (dayOfWeekJan1 + 5) % 7 + 1;  // Adjust to make Sunday = 0, Monday = 1 and so on
+	int dayOfWeekJan1 = (dayOfMonth + (13 * (m + 1)) / 5 + yearOfCentury + (yearOfCentury / 4) + (zeroBasedCentury / 4) - (2 * zeroBasedCentury)) % 7;
+	dayOfWeekJan1 = (dayOfWeekJan1 + 5) % 7 + 1; // Adjust to make Sunday = 0, Monday = 1 and so on
 
 	// Calculate the week number
 	int weekNumber = (dayOfYear + dayOfWeekJan1 - 1) / 7 + 1;
@@ -217,12 +220,10 @@ static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 {
 	int totalDaysSinceYearOne = getNumberOfDaysSinceYearOne(year);
     int count = ((endMonth + 1) - startMonth);
-	int* firstDayInMonths = malloc(sizeof(int) * count);
+	static int firstDayInMonths[12];
 
 	if (firstDayInMonths)
 	{
-	    initArray(count, firstDayInMonths);
-
 		int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 		if (getLeapYear(year))
@@ -242,7 +243,7 @@ static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 				ticks++;
 			}
 			totalOffset += offset;
-		}
+ 		}
 	}
 
 	return firstDayInMonths;
@@ -259,7 +260,7 @@ static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 {
 	int count = ((endMonth + 1) - startMonth);
-	int* dayCount = malloc(sizeof(int) * count);
+    static int dayCount[12];
 
 	if (dayCount)
 	  {
@@ -293,7 +294,7 @@ static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 /// <param name="weekdays"></param>
 /// <param name="year"></param>
 /// <param name="option"></param>
-void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, const char option[])
+void printCalendar (int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, const char option[])
 {
 	printMonthNames(months, startMonth, endMonth, option);
 	printWeekdayNames(weekdays, option);
@@ -342,9 +343,7 @@ void printCalendar(int startMonth, int endMonth, const char* months[], const cha
 		}
 		printf("\n");
 	}
-
-	free(firstDayInMonths);
-	free(numberOfDaysPerMonth);
+	printf ("\n");
 }
 
 /// <summary>
@@ -374,32 +373,28 @@ void runAssertions(void)
 	assert(getWeekNumber(2024, 12, 28) == 52);
 
 	// Test getFirstDayInMonths
-	int* firstDayInMonths = getFirstDayInMonths(0, 2, 2024);  // Jan-Mar 2024
+	int* firstDayInMonths = getFirstDayInMonths (0, 2, 2024); // Jan-Mar 2024
 	assert(firstDayInMonths[0] == 1);
 	assert(firstDayInMonths[1] == 4);
 	assert(firstDayInMonths[2] == 5);
-	free(firstDayInMonths);
-
-	firstDayInMonths = getFirstDayInMonths(0, 2, 1753);  // Jan-Mar 1753
+	
+	firstDayInMonths = getFirstDayInMonths (0, 2, 1753); // Jan-Mar 1753
 	assert(firstDayInMonths[0] == 1);
 	assert(firstDayInMonths[1] == 4);
 	assert(firstDayInMonths[2] == 4);
-	free(firstDayInMonths);
 
 	// Test getNumberOfDaysPerMonth
-	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2024);  // Jan-Mar Leap year
+	int* numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 2, 2024); // Jan-Mar Leap year
 	assert(numberOfDaysPerMonth[0] == 31);
 	assert(numberOfDaysPerMonth[1] == 29);
 	assert(numberOfDaysPerMonth[2] == 31);
-	free(numberOfDaysPerMonth);
 
-	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 2, 2023);  // Jan-Mar Non-leap year
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 2, 2023); // Jan-Mar Non-leap year
 	assert(numberOfDaysPerMonth[0] == 31);
 	assert(numberOfDaysPerMonth[1] == 28);
 	assert(numberOfDaysPerMonth[2] == 31);
-	free(numberOfDaysPerMonth);
 
-	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2024);  // Jan-Dec Leap year
+	numberOfDaysPerMonth = getNumberOfDaysPerMonth (0, 11, 2024); // Jan-Dec Leap year
 	assert(numberOfDaysPerMonth[0] == 31);
     assert(numberOfDaysPerMonth[1] == 29);
     assert(numberOfDaysPerMonth[2] == 31);
@@ -412,7 +407,6 @@ void runAssertions(void)
     assert(numberOfDaysPerMonth[9] == 31);
     assert(numberOfDaysPerMonth[10] == 30);
 	assert(numberOfDaysPerMonth[11] == 31);
-	free(numberOfDaysPerMonth);
 
 	numberOfDaysPerMonth = getNumberOfDaysPerMonth(0, 11, 2023);  // Jan-Dec Non-leap year
 	assert(numberOfDaysPerMonth[0] == 31);
@@ -427,5 +421,4 @@ void runAssertions(void)
     assert(numberOfDaysPerMonth[9] == 31);
     assert(numberOfDaysPerMonth[10] == 30);
 	assert(numberOfDaysPerMonth[11] == 31);
-	free(numberOfDaysPerMonth);
 }
