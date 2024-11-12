@@ -37,7 +37,7 @@ int main()
 
 		if (year < 1753)
 		{
-			printf("Year must be greater than 1752\n"); //Aplication doesn't handle switch between Julian an Gregorian calendar
+			printf("Year must be greater than 1752\n"); //Application doesn't handle switch between Julian an Gregorian calendar
 			continue;
 		}
 
