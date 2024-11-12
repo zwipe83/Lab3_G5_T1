@@ -1,4 +1,5 @@
-BasedOnStyle: Google  # or any other base style
+BasedOnStyle: Linux  # or any other base style
 UseTab: Always         # Use tabs for indentation
+ColumnLimit: 100
 AllowShortBlocksOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
