@@ -1,9 +1,13 @@
 ---
 name: Lint
 
-on: # yamllint disable-line rule:truthy
-  push: null
-  pull_request: null
+on:
+  push:
+    branches:
+      - main  # Adjust to your default branch
+  pull_request:
+    branches:
+      - main  # Adjust to your default branch
 
 permissions: {}
 
@@ -31,3 +35,4 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLANG_FORMAT_FILE_NAME: .clang-format
