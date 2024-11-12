@@ -15,4 +15,4 @@ void printYear(int year, const char option[]);
 void printCalendar(int startMonth, int endMonth, const char* months[], const char* weekdays[], int year, const char option[]);
 void runAssertions(void);
 
-#endif // FUNCTIONS_H_
+#endif  // FUNCTIONS_H_
