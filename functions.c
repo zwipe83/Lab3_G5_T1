@@ -73,7 +73,7 @@ int getNumberOfDaysSinceYearOne(int year)
 void printYear(int year, const char option[])
 {
 	int offset = 35;
-	if ((strcmp(option, "-w") == 0))
+    if ((strcmp (option, "-w") == 0)) // More space needed for week numbers
 	{
 		offset = 38;
 	}
