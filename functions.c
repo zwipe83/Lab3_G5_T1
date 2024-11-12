@@ -16,7 +16,8 @@ static void printMonthNames(const char* months[], int startMonth, int endMonth, 
 static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
-static int* getFirstDayInMonths(int startMonth, int endMonth, int year);
+static void initArray(int count, int *ary);
+static int *getFirstDayInMonths (int startMonth, int endMonth, int year);
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year);
 
 /// <summary>
@@ -196,25 +197,31 @@ static void printWeekNumber(int year, int startMonth, int month, const	int* dayC
 	printf("%2d ", week);
 }
 
+static void initArray(int count, int *ary)
+{
+	// Initialize the array
+	for (int i = 0; i < count; i++)
+	{
+		ary[i] = 0;
+    }
+}
+
 /// <summary>
 /// Get first weekday of the first week of each month, "Su-Sa", translated to 0-6
 /// </summary>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
 /// <param name="year"></param>
-/// <param name="isLeapYear"></param>
 /// <returns></returns>
 static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 {
 	int totalDaysSinceYearOne = getNumberOfDaysSinceYearOne(year);
-	int* firstDayInMonths = malloc(sizeof(int) * ((endMonth + 1) - startMonth));
+    int count = ((endMonth + 1) - startMonth);
+	int* firstDayInMonths = malloc(sizeof(int) * count);
 
 	if (firstDayInMonths)
 	{
-		// Initialize the array
-		for (int i = 0; i <= (endMonth - startMonth); i++) {
-			firstDayInMonths[i] = 0;
-		}
+	    initArray(count, firstDayInMonths);
 
 		int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -248,18 +255,15 @@ static int* getFirstDayInMonths(int startMonth, int endMonth, int year)
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
 /// <param name="year"></param>
-/// <param name="isLeapYear"></param>
 /// <returns></returns>
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 {
-	int* dayCount = malloc(sizeof(int) * ((endMonth+1) - startMonth));
+	int count = ((endMonth + 1) - startMonth);
+	int* dayCount = malloc(sizeof(int) * count);
 
 	if (dayCount)
-	{
-		// Initialize the array
-		for (int i = 0; i <= (endMonth - startMonth); i++) {
-			dayCount[i] = 0;
-		}
+	  {
+	    initArray(count, dayCount);
 
 		int daysInMonths[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -285,7 +289,6 @@ static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year)
 /// </summary>
 /// <param name="startMonth"></param>
 /// <param name="endMonth"></param>
-/// <param name="isLeapYear"></param>
 /// <param name="months"></param>
 /// <param name="weekdays"></param>
 /// <param name="year"></param>
@@ -405,7 +408,7 @@ void runAssertions(void)
     assert(numberOfDaysPerMonth[5] == 30);
     assert(numberOfDaysPerMonth[6] == 31);
     assert(numberOfDaysPerMonth[7] == 31);
-    assert(numberOfDaysPerMonth[8] == 3);
+    assert(numberOfDaysPerMonth[8] == 30);
     assert(numberOfDaysPerMonth[9] == 31);
     assert(numberOfDaysPerMonth[10] == 30);
 	assert(numberOfDaysPerMonth[11] == 31);
@@ -420,7 +423,7 @@ void runAssertions(void)
     assert(numberOfDaysPerMonth[5] == 30);
     assert(numberOfDaysPerMonth[6] == 31);
     assert(numberOfDaysPerMonth[7] == 31);
-    assert(numberOfDaysPerMonth[8] == 3);
+    assert(numberOfDaysPerMonth[8] == 30);
     assert(numberOfDaysPerMonth[9] == 31);
     assert(numberOfDaysPerMonth[10] == 30);
 	assert(numberOfDaysPerMonth[11] == 31);

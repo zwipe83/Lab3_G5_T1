@@ -32,7 +32,7 @@ int main()
 		option[0] = '\0';  // Set option to empty string
 
 		// Ask for a specific year
-		printf("Enter a year (Option '-w' to display week numbers, <= 0 to exit): \n");
+		printf("Enter a year (Option ' -w' to display week numbers, <= 0 to exit): \n");
 		scanf_s("%d", &year);  // Read only the year first
 		
 		system("cls");  // Clear console screen
