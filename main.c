@@ -30,7 +30,7 @@ int main()
 		// Ask for a specific year
 		printf("Enter a year (Option ' -w' to display week numbers, <= 0 to exit):\n");
 		scanf_s("%d", &year);  // Read only the year first
-		
+
 		system("cls");  // Clear console screen
 
 		if (year <= 0)
@@ -46,7 +46,7 @@ int main()
 
 		// Check if there is an additional option
 		if (getchar() == ' ')  // Check if there is a space indicating more input
-		{  
+		{
 			int o = scanf("%9s", option);  // Read the option if available
 		}
 
