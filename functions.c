@@ -17,7 +17,7 @@ static void printWeekdayNames(const char* weekdays[], const char option[]);
 static int getWeekNumber(int year, int month, int day);
 static void printWeekNumber(int year, int startMonth, int month, const	int* dayCount, int nextDay);
 static void initArray(int count, int *ary);
-static int *getFirstDayInMonths (int startMonth, int endMonth, int year);
+static int *getFirstDayInMonths(int startMonth, int endMonth, int year);
 static int* getNumberOfDaysPerMonth(int startMonth, int endMonth, int year);
 
 /// <summary>
