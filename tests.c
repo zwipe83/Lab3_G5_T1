@@ -8,8 +8,8 @@
 #include "tests.h"
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "functions.h"
 #include <stdlib.h>
+#include "functions.h"
 
 // Test for leap days from 1 to 2004
 void test_getLeapDays_2004() {

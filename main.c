@@ -5,9 +5,9 @@
 // Description: Main file for calendar application.
 //////////////////////////////////////////////////////////////////////////
 
-#include "functions.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "functions.h"
 
 /// <summary>
 /// Month and weekday names
@@ -17,10 +17,6 @@ const char* weekdays[] = { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" };
 
 int main()
 {
-	// printf("days 2024: %d\n", getNumberOfDaysSinceYearOne(2024));
-	// printf("days 1753: %d\n", getNumberOfDaysSinceYearOne(1753));
-	// printf("days 100: %d\n", getNumberOfDaysSinceYearOne(100));
-	
 	// Run assertions
 	runAssertions();
 
